@@ -11,7 +11,7 @@ permissions:
     id-token: write
     pull-requests: write
     deployments: write
-    checks: read
+    checks: write
           
 
 jobs:
@@ -54,6 +54,6 @@ jobs:
                 destination_folder: '/public/embed/yorha-ui/'
                 destination_branch: 'dev'
                 destination_branch_create: 'patch-${{ env.GITSHA }}'
-                user_email: '5599058+h0lybyte@users.noreply.github.com'
-                user_name: '[h0lybyteBot]'
+                user_email: 'my-github-actions-bot@example.org'
+                user_name: 'My GitHub Actions Bot'
                 commit_message: 'Test Casing'
