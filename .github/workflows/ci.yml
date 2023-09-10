@@ -10,6 +10,8 @@ permissions:
     pages: write
     id-token: write
     pull-requests: write
+    deployments: write
+    checks: read
           
 
 jobs:
@@ -18,7 +20,7 @@ jobs:
         steps:
 
         -   name: Checkout
-            uses: actions/checkout@v3
+            uses: actions/checkout@v2
 
         -   name: Declare Patch Variable
             shell: bash
