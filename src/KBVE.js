@@ -5,11 +5,12 @@ import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
 
 export const KBVE = () => {
-
   const $kbve = useStore(VE.kbve$);
 
+  const bgTest = 'https://images.unsplash.com/photo-1682687982501-1e58ab814714?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80';
+
   const userAction = async (_key, _string) => {
-      VE.Tasker(_key, _string);
+    VE.Tasker(_key, _string);
   };
 
   return (
@@ -19,7 +20,7 @@ export const KBVE = () => {
           <a
             rel="noopener noreferrer"
             href={"/#"}
-            tw="mb-0 uppercase text-lg text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black">
+            tw="mb-0 uppercase text-lg text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
             {"Guest"}
           </a>
         </div>
@@ -29,11 +30,16 @@ export const KBVE = () => {
       </div>
       <div tw="space-y-4">
         <div tw="space-y-2">
-          <img
-            src={""}
-            alt=""
-            tw="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
-          />
+          <div tw="flex flex-wrap h-72">
+            {/* FlexBox */}
+            <div tw="w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"  style={{backgroundImage: `url(${bgTest})`}}>
+              <div tw="p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
+                  <div tw="text-lg text-nier-dark-brown font-manrope"> Hello! </div>
+                    {"Hello!"}
+              </div>
+            </div>
+            {/* FlexBox End */}
+          </div>
           <div tw="flex items-center text-xs divide-x-2 rounded text-[#3F3D36] divide-gray-700">
             <button
               type="button"
@@ -60,7 +66,9 @@ export const KBVE = () => {
           <a rel="noopener noreferrer" href="#" tw="block">
             <h3 tw="text-xl font-semibold">Username Here</h3>
           </a>
-          <p tw="text-nier-dark-brown">Descriptions? UUID  Action {$kbve.userAction}</p>
+          <p tw="text-nier-dark-brown">
+            Descriptions? UUID Action {$kbve.userAction}
+          </p>
         </div>
       </div>
     </div>
