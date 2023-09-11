@@ -8,31 +8,33 @@
       "preset": "styled-components"
     }
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "bootstrap": "yorha-ui/bootstrap.js",
   "targets": {
-    "browser": {
+    "bootstrap": {
+      "engines": {
+        "browsers": "> 0.2%, not dead"
+      },
       "includeNodeModules": true,
-      "optimize": true
+      "outputFormat": "global"
     }
   },
   "devDependencies": {
     "@babel/core": "^7.22.17",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-react-jsx": "^7.22.15",
+    "@parcel/config-default": "^2.9.3",
+    "@parcel/core": "^2.9.3",
+    "@parcel/optimizer-terser": "^2.9.3",
+    "@parcel/transformer-typescript-tsc": "^2.9.3",
     "autoprefixer": "^10.4.15",
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^2.1.4",
-    "events": "^3.1.0",
+    "parcel": "^2.9.3",
     "postcss": "^8.4.29",
-    "string_decoder": "^1.3.0",
-    "tty-browserify": "^0.0.1",
-    "vm-browserify": "^1.1.2"
+    "process": "^0.11.10"
   },
   "scripts": {
-    "kbve": "parcel build src/index.js --dist-dir yorha-ui",
-    "docs": "parcel build src/index.js --dist-dir docs",
+    "kbve": "parcel build src/index.js --dist-dir yorha-ui --log-level verbose",
+    "docs": "parcel build src/index.js --dist-dir docs  --log-level verbose",
     "start": "parcel src/index.html",
     "prebuild": "rm -rf dist/"
   },
@@ -40,51 +42,11 @@
     "@nanostores/persistent": "^0.9.1",
     "@nanostores/react": "^0.7.1",
     "appwrite": "^13.0.0",
-    "assert": "^2.0.0",
-    "axios": "^1.5.0",
-    "browserify-fs": "^1.0.0",
-    "browserify-zlib": "^0.2.0",
-    "buffer": "^5.5.0||^6.0.0",
-    "crypto-browserify": "^3.12.0",
-    "https-browserify": "^1.0.0",
     "nanostores": "^0.9.3",
-    "net-browserify": "^0.2.4",
-    "os-browserify": "^0.3.0",
-    "parcel": "^2.9.3",
-    "path-browserify": "^1.0.1",
-    "process": "^0.11.10",
-    "punycode": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-shuffle-text": "^1.0.6",
-    "stream": "^0.0.2",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
     "styled-components": "^6.0.7",
     "tailwindcss": "^3.3.3",
-    "tls-browserify": "^0.2.2",
-    "twin.macro": "^3.4.0",
-    "url": "^0.11.0",
-    "util": "^0.12.5"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "alias": {
-    "zlib": "browserify-zlib",
-    "http": "stream-http",
-    "https": "https-browserify",
-    "crypto": "crypto-browserify",
-    "buffer": "buffer",
-    "process": "process/browser.js"
+    "twin.macro": "^3.4.0"
   }
 }

@@ -1,27 +1,26 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
-import axios from "axios";
 import * as VE from "./VE";
+
 import tw, { styled } from "twin.macro";
-import ShuffleText from 'react-shuffle-text';
 
+export const KBVE = () => {
 
-export const KBVE = ({ ve }) => {
   const $kbve = useStore(VE.kbve$);
 
   const userAction = async (_key, _string) => {
-    VE.Tasker(_key, _string);
+      VE.Tasker(_key, _string);
   };
 
   return (
-    <>
+    <div tw="min-w-[300px] max-w-[600px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden">
       <div tw="flex justify-between pb-4 ">
         <div tw="flex items-center">
           <a
             rel="noopener noreferrer"
-            href={$kbve.path}
+            href={"/#"}
             tw="mb-0 uppercase text-lg text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black">
-            <ShuffleText content={$kbve.username || "Guest"} />
+            {"Guest"}
           </a>
         </div>
         <a rel="noopener noreferrer" href="#">
@@ -31,7 +30,7 @@ export const KBVE = ({ ve }) => {
       <div tw="space-y-4">
         <div tw="space-y-2">
           <img
-            src={$kbve.img}
+            src={""}
             alt=""
             tw="block object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
           />
@@ -58,24 +57,13 @@ export const KBVE = ({ ve }) => {
         </div>
 
         <div tw="space-y-2">
-          {$kbve.load && (
-            <div tw="flex items-center justify-center space-x-2">
-              <div tw="w-4 h-4 rounded-full animate-pulse bg-orange-400"></div>
-              <div tw="w-4 h-4 rounded-full animate-pulse bg-orange-400"></div>
-              <div tw="w-4 h-4 rounded-full animate-pulse bg-orange-400"></div>
-            </div>
-          )}{" "}
-          <>
-            <a rel="noopener noreferrer" href="#" className="block">
-              <h3 tw="text-xl font-semibold">{$kbve.username}</h3>
-            </a>
-            <p tw="text-nier-dark-brown">
-              Descriptions? UUID {$kbve.uuid} and Action {$kbve.userAction}
-            </p>
-          </>
+          <a rel="noopener noreferrer" href="#" tw="block">
+            <h3 tw="text-xl font-semibold">Username Here</h3>
+          </a>
+          <p tw="text-nier-dark-brown">Descriptions? UUID  Action {$kbve.userAction}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
