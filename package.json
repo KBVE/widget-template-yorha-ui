@@ -13,7 +13,7 @@
     "node": ">=18.0.0"
   },
   "targets": {
-    "main": {
+    "default": {
       "includeNodeModules": true,
       "optimize": true
     }
@@ -32,7 +32,7 @@
     "vm-browserify": "^1.1.2"
   },
   "scripts": {
-    "kbve": "parcel build src/index.js --dist-dir docs",
+    "kbve": "parcel build src/index.js --dist-dir yorha-ui",
     "start": "parcel src/index.html",
     "prebuild": "rm -rf dist/"
   },

@@ -49,9 +49,9 @@ jobs:
                 API_TOKEN_GITHUB: ${{ secrets.UNITY_PAT }}
                 GITSHA: ${{ github.sha }}
             with:
-                source_file: 'docs'
+                source_file: 'yorha-ui'
                 destination_repo: 'kbve/kbve.com'
-                destination_folder: '/public/embed/yorha-ui/'
+                destination_folder: '/public/embed/'
                 destination_branch: 'dev'
                 destination_branch_create: 'patch-${{ env.GITSHA }}'
                 user_email: 'my-github-actions-bot@example.org'
