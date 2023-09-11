@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 
-yorha-ui*
+yorha-ui/*.js*

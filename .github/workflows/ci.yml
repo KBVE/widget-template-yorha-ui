@@ -55,18 +55,5 @@ jobs:
                 destination_branch: 'dev'
                 destination_branch_create: 'patch-${{ env.GITSHA }}'
                 user_email: 'my-github-actions-bot@example.org'
-                user_name: 'My GitHub Actions Bot'
-                commit_message: 'Test Casing'
-
-        # -   name: Pushes to another repository
-        #     uses: cpina/github-action-push-to-another-repository@main
-        #     env:
-        #         API_TOKEN_GITHUB: ${{ secrets. }}
-        #     with:
-        #         source-directory: 'docs'
-        #         destination-github-username: 'kbve'
-        #         destination-repository-name: 'kbve.com'
-        #         user-email: my-github-actions-bot@example.org
-        #         target-branch: dev
-        #         target-directory: '/public/embed/yorha-ui/'
-        #         create-target-branch-if-needed: true
+                user_name: 'KBVEBot'
+                commit_message: 'Embed Deployment'

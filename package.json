@@ -13,7 +13,7 @@
     "node": ">=18.0.0"
   },
   "targets": {
-    "default": {
+    "browser": {
       "includeNodeModules": true,
       "optimize": true
     }
@@ -33,6 +33,7 @@
   },
   "scripts": {
     "kbve": "parcel build src/index.js --dist-dir yorha-ui",
+    "docs": "parcel build src/index.js --dist-dir docs",
     "start": "parcel src/index.html",
     "prebuild": "rm -rf dist/"
   },
@@ -85,6 +86,7 @@
     "http": "stream-http",
     "https": "https-browserify",
     "crypto": "crypto-browserify",
-    "buffer": "buffer"
+    "buffer": "buffer",
+    "process": "process/browser.js"
   }
 }
