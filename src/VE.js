@@ -31,5 +31,3 @@ export const Init = async () => {
     const account = new Account(client);
   });
 };
-
-export const T = Tasker;

@@ -10,7 +10,7 @@ export const KBVE = ({ ve }) => {
   const $kbve = useStore(VE.kbve$);
 
   const userAction = async (_key, _string) => {
-    VE.T(_key, _string);
+    VE.Tasker(_key, _string);
   };
 
   return (
