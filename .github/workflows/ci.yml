@@ -43,30 +43,30 @@ jobs:
             with:
                 cmd: kbve  
     
-        # -   name: Pushes test file
-        #     uses: dmnemec/copy_file_to_another_repo_action@main
-        #     env:
-        #         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
-        #         GITSHA: ${{ github.sha }}
-        #     with:
-        #         source_file: 'docs'
-        #         destination_repo: 'kbve/kbve.com'
-        #         destination_folder: '/public/embed/yorha-ui/'
-        #         destination_branch: 'dev'
-        #         destination_branch_create: 'patch-${{ env.GITSHA }}'
-        #         user_email: 'my-github-actions-bot@example.org'
-        #         user_name: 'My GitHub Actions Bot'
-        #         commit_message: 'Test Casing'
-
-        -   name: Pushes to another repository
-            uses: cpina/github-action-push-to-another-repository@main
+        -   name: Pushes test file
+            uses: dmnemec/copy_file_to_another_repo_action@main
             env:
-                API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+                API_TOKEN_GITHUB: ${{ secrets.UNITY_PAT }}
+                GITSHA: ${{ github.sha }}
             with:
-                source-directory: 'docs'
-                destination-github-username: 'kbve'
-                destination-repository-name: 'kbve.com'
-                user-email: my-github-actions-bot@example.org
-                target-branch: dev
-                target-directory: '/public/embed/yorha-ui/'
-                create-target-branch-if-needed: true
+                source_file: 'docs'
+                destination_repo: 'kbve/kbve.com'
+                destination_folder: '/public/embed/yorha-ui/'
+                destination_branch: 'dev'
+                destination_branch_create: 'patch-${{ env.GITSHA }}'
+                user_email: 'my-github-actions-bot@example.org'
+                user_name: 'My GitHub Actions Bot'
+                commit_message: 'Test Casing'
+
+        # -   name: Pushes to another repository
+        #     uses: cpina/github-action-push-to-another-repository@main
+        #     env:
+        #         API_TOKEN_GITHUB: ${{ secrets. }}
+        #     with:
+        #         source-directory: 'docs'
+        #         destination-github-username: 'kbve'
+        #         destination-repository-name: 'kbve.com'
+        #         user-email: my-github-actions-bot@example.org
+        #         target-branch: dev
+        #         target-directory: '/public/embed/yorha-ui/'
+        #         create-target-branch-if-needed: true
