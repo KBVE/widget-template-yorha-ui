@@ -12,6 +12,7 @@ module.exports = {
         "nier-yellow": "#dad4bb",
         "nier-brown": "#b4af9a",
         "nier-red": "#cd664d",
+        "nier-brown": "#454138",
         "nier-dark-brown": "#57544a",
         "dark-text": "#3F3D36",
       },

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import  KBVE from "./KBVE";
-import GlobalStyles from "./styles/GlobalStyles";
+import GlobalStyles from "./GlobalStyles";
 
 const widgetRoot = ReactDOM.createRoot(
   document.getElementById("widget_yorha_ui")
