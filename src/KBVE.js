@@ -2,70 +2,50 @@ import React from "react";
 import { useStore } from "@nanostores/react";
 import * as VE from "./VE";
 
-
 import tw, { styled } from "twin.macro";
 
 export const KBVE = () => {
   const $kbve = useStore(VE.kbve$);
+  const $scene = useStore(VE.scene$);
+
+
+  // const sceneGeneration = () => {
+
+  //   VE.scene$.subscribe((value) => {
+  //     console.log(`New Value ${value}`)
+  //     return VE.Scene;  
+  //   });
+  // }
 
   React.useEffect(() => {
-      VE.Tasker('load', false);
-  }, [])
+      VE.Locker("scene", "MainScreen");
+     
+  }, []);
 
-  const bgTest =
-    "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2040&q=80";
-
-  const userAction = async (_key, _string) => {
-    VE.Tasker(_key, _string);
-  };
 
   return (
     <div
-      tw="sm:min-w-[250px] md:min-w-[300px] md:max-w-[720px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden bg-cover bg-blend-darken"
+      tw="sm:min-w-[250px] md:min-w-[300px] md:max-w-[720px] min-h-[550px] max-h-[550px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden bg-cover bg-blend-darken"
       style={{
         backgroundImage: `url(https://kbve.com/assets/img/curved-images/wave.jpg)`,
       }}>
       <div tw="flex justify-between pb-4 ">
         <div tw="flex items-center">
-  
-          <VE.berserkButton action='Profile' text='Guest'/>
+          <VE.berserkButton action="Profile" text="Guest" />
         </div>
-        <VE.shitOnMemeButton action='Meme!' text='Help' svg={    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <path d="M280.054 19.867c-64.315 0-121.76 28.793-159.643 73.934 27.387.07 87.928 3.05 96.12 25.726-38.414-12.105-79.753-11.26-108.534-9.302a201.013 201.013 0 00-13.656 23.314c31.507-8.307 147.998-3.37 154.8 21.268-75.985-18.624-140.59-8.65-162.058-4.895-8.768 22.446-13.584 46.805-13.584 72.272 0 111.736 96.248 269.949 210.324 269.949 57.808 0 109.1-40.63 145.637-95.248-31.403 23.812-98.04 57.308-139.002 34.648 81.592-8.994 139.965-50.978 156.19-63.353 25.207-47.142 39.959-100.432 39.959-145.996 0-111.737-92.477-202.317-206.553-202.317zm-.002 151.692c105.084 0 190.273 27.727 190.273 61.931 0 22.047-4.495 33.48-57.797 44.453-29.39 6.052-95.127-31.181-132.476-31.181-34.864 0-87.12 41.345-115.219 36.017-56.597-10.732-75.053-26.433-75.053-49.289 0-34.204 85.188-61.931 190.272-61.931zm83.885 39.894c-20.14-.12-41.571 3.295-41.475 9.91.182 12.453 17.364 22.298 38.377 21.99 21.013-.306 18.555-16.216 37.717-23.101-.085-5.837-16.85-8.693-34.62-8.799zm-172.682 2.883c-17.77.105-34.534 2.964-34.62 8.8 19.162 6.885 16.704 22.796 37.718 23.102 21.013.307 38.195-9.54 38.377-21.992.096-6.615-21.336-10.03-41.475-9.91zm92.57 82.441c31.032 0 56.188 25.235 56.188 25.235s-28.184-11.104-59.217-11.104c-31.032 0-53.16 11.104-53.16 11.104s25.156-25.235 56.19-25.235zM31.25 411.39c4.344 2.046 7.783-40.336 52.246-61.265-8.111-8.465-12.438-24.638-14.24-35.502-32.733 4.158-55.012 84.887-38.006 96.767zm56.31-41.694c-7.511-.052-17.26-.228-17.445 16.937-.498 46.31-42.805 96.953-40.128 98.215 7.138 3.364 49.598-32.077 61.906-59.44 4.159-9.244 11.516-55.603-4.333-55.712z"></path>
-    </svg>} />
+        <VE.shitOnMemeButton
+          scene="MainScreen"
+          text="Help"
+          svg={
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M280.054 19.867c-64.315 0-121.76 28.793-159.643 73.934 27.387.07 87.928 3.05 96.12 25.726-38.414-12.105-79.753-11.26-108.534-9.302a201.013 201.013 0 00-13.656 23.314c31.507-8.307 147.998-3.37 154.8 21.268-75.985-18.624-140.59-8.65-162.058-4.895-8.768 22.446-13.584 46.805-13.584 72.272 0 111.736 96.248 269.949 210.324 269.949 57.808 0 109.1-40.63 145.637-95.248-31.403 23.812-98.04 57.308-139.002 34.648 81.592-8.994 139.965-50.978 156.19-63.353 25.207-47.142 39.959-100.432 39.959-145.996 0-111.737-92.477-202.317-206.553-202.317zm-.002 151.692c105.084 0 190.273 27.727 190.273 61.931 0 22.047-4.495 33.48-57.797 44.453-29.39 6.052-95.127-31.181-132.476-31.181-34.864 0-87.12 41.345-115.219 36.017-56.597-10.732-75.053-26.433-75.053-49.289 0-34.204 85.188-61.931 190.272-61.931zm83.885 39.894c-20.14-.12-41.571 3.295-41.475 9.91.182 12.453 17.364 22.298 38.377 21.99 21.013-.306 18.555-16.216 37.717-23.101-.085-5.837-16.85-8.693-34.62-8.799zm-172.682 2.883c-17.77.105-34.534 2.964-34.62 8.8 19.162 6.885 16.704 22.796 37.718 23.102 21.013.307 38.195-9.54 38.377-21.992.096-6.615-21.336-10.03-41.475-9.91zm92.57 82.441c31.032 0 56.188 25.235 56.188 25.235s-28.184-11.104-59.217-11.104c-31.032 0-53.16 11.104-53.16 11.104s25.156-25.235 56.19-25.235zM31.25 411.39c4.344 2.046 7.783-40.336 52.246-61.265-8.111-8.465-12.438-24.638-14.24-35.502-32.733 4.158-55.012 84.887-38.006 96.767zm56.31-41.694c-7.511-.052-17.26-.228-17.445 16.937-.498 46.31-42.805 96.953-40.128 98.215 7.138 3.364 49.598-32.077 61.906-59.44 4.159-9.244 11.516-55.603-4.333-55.712z"></path>
+            </svg>
+          }
+        />
       </div>
-      <div tw="space-y-4">
-        <div tw="space-y-2">
-          <div tw="flex flex-wrap h-72">
-            {/* FlexBox */}
-            <div
-              tw="w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
-              style={{ backgroundImage: `url(${bgTest})` }}>
-              <div tw="p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
-                <div tw="text-lg text-nier-dark-brown font-manrope">
-                  {" "}
-                  Hello!{" "}
-                </div>
-              </div>
-            </div>
-            {/* FlexBox End */}
-          </div>
-          <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
-            <VE.shutterButton action='en' text='EN'/>
-            <VE.shutterButton action='de' text='DE'/>
-            <VE.shutterButton action='fr' text='FR'/>
-          </div>
-        </div>
 
-        <div tw="space-y-2">
-          <a rel="noopener noreferrer" href="#" tw="block">
-            <h3 tw="text-xl font-semibold">Username Here</h3>
-          </a>
-          <p tw="text-nier-dark-brown">
-            Descriptions? UUID Action {$kbve.action}
-          </p>
-        </div>
-      </div>
+      <VE.Scene />
+      
     </div>
   );
 };
