@@ -35,12 +35,21 @@ export const Locker = async (__key, __data) => {
   });
 };
 
-export const Tasker = async (__data) => {
+export const Tasker = async (__task, __data) => {
   task(async () => {
-    console.log(`[Task]@Action - ${__data}`);
-    __storage.setKey(__data);
+    console.log(`[TASK] ${__task} - ${__data}`);
+    switch (__task) {
+      case "action":
+        return action$.set(__data);
+      case "scene":
+        return scene$.set(__data);
+      case "load":
+        return load$.set(__data);
+      default:
+        return Locker(__task, __data);
+    }
   });
-}
+};
 
 export const Init = async () => {
   task(async () => {
@@ -55,13 +64,9 @@ export const zeroCool = () => {};
 
 //?       [BUTTONS]
 
-export const berserkButton = ({ action, text }) => {
+export const berserkButton = ({ scene, text }) => {
   const handleClick = async () => {
-     task(async () => {
-      console.log(`Action Click Triggered for ${action}`);
-       action$.set(action);
-     });
-
+    Tasker("scene", scene);
   };
 
   return (
@@ -69,7 +74,7 @@ export const berserkButton = ({ action, text }) => {
       //disabled={load$}
       className="group"
       onClick={handleClick}
-      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] transition-all ease-out duration-300">
+      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300">
       <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
       <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
         {text}
@@ -80,10 +85,7 @@ export const berserkButton = ({ action, text }) => {
 
 export const ShutterButton = ({ action, text }) => {
   const handleClick = async () => {
-    task(async () => {
-      console.log(`Shutter Click Triggered for ${action}`);
-      action$.set(action);
-    });
+    Tasker("action", action);
   };
 
   return (
@@ -106,10 +108,7 @@ export const ShutterButton = ({ action, text }) => {
 
 export const shitOnMemeButton = ({ scene, text, svg }) => {
   const handleClick = async () => {
-    task(async () => {
-      console.log(`Meme Click Triggered for ${scene}`);
-      scene$.set(scene);
-    });
+    Tasker("scene", scene);
   };
 
   return (
@@ -132,8 +131,8 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
 
 export const Loader = () => {
   return (
-    <div tw="space-y-4">
-      <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse  h-72">
+    <div tw="space-y-4 grid place-items-center">
+      <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-72">
         <div tw="h-48 rounded-t bg-[#57544a]"></div>
         <div tw="flex-1 px-4 py-8 space-y-4 sm:p-8 bg-gray-900">
           <div tw="w-full h-6 rounded bg-[#57544a]"></div>
@@ -146,12 +145,12 @@ export const Loader = () => {
 };
 
 export const MainScreen = () => {
+  const $action = useStore(action$);
 
   return (
     <div tw="space-y-4">
       <div tw="space-y-2">
         <div tw="flex flex-wrap h-72">
-          {/* FlexBox */}
           <div
             tw="w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
             style={{
@@ -161,7 +160,6 @@ export const MainScreen = () => {
               <div tw="text-lg text-nier-dark-brown font-manrope"> Hello! </div>
             </div>
           </div>
-          {/* FlexBox End */}
         </div>
         <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
           <ShutterButton action="en" text="DE" />
@@ -174,24 +172,19 @@ export const MainScreen = () => {
         <a rel="noopener noreferrer" href="#" tw="block">
           <h3 tw="text-xl font-semibold">Username Here</h3>
         </a>
-        <p tw="text-nier-dark-brown">
-          Descriptions? UUID Action
-        </p>
+        <p tw="text-nier-dark-brown">Descriptions? UUID Action {$action}</p>
       </div>
     </div>
   );
 };
 
 export const Scene = () => {
- 
   const $scene = useStore(scene$);
 
   switch ($scene) {
-      case 'MainScreen':
-          return <MainScreen />;
-      default:
-          return <Loader />;    
+    case "MainScreen":
+      return <MainScreen />;
+    default:
+      return <Loader />;
   }
-
-
 };

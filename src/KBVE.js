@@ -1,26 +1,20 @@
 import React from "react";
-import { useStore } from "@nanostores/react";
 import * as VE from "./VE";
 
 import tw, { styled } from "twin.macro";
 
 export const KBVE = () => {
-  const $kbve = useStore(VE.kbve$);
-  const $scene = useStore(VE.scene$);
 
+  const mounted = React.useRef(false);
 
-  // const sceneGeneration = () => {
-
-  //   VE.scene$.subscribe((value) => {
-  //     console.log(`New Value ${value}`)
-  //     return VE.Scene;  
-  //   });
-  // }
-
-  React.useEffect(() => {
-      VE.Locker("scene", "MainScreen");
-     
-  }, []);
+ React.useEffect(() => {
+       mounted.current = true;
+       setTimeout(() => VE.Tasker("scene", "MainScreen"), 1000)
+       //VE.Tasker("scene", "MainScreen");
+       return () => {
+           mounted.current = false;
+       };
+   }, []);
 
 
   return (
@@ -30,8 +24,11 @@ export const KBVE = () => {
         backgroundImage: `url(https://kbve.com/assets/img/curved-images/wave.jpg)`,
       }}>
       <div tw="flex justify-between pb-4 ">
-        <div tw="flex items-center">
-          <VE.berserkButton action="Profile" text="Guest" />
+        <div tw="flex items-center space-x-4 scale-75 md:scale-90">
+          <VE.berserkButton scene="menu" text="Menu" />
+          <VE.berserkButton scene="ship" text="Ship" /> 
+
+
         </div>
         <VE.shitOnMemeButton
           scene="MainScreen"
