@@ -150,14 +150,18 @@ export const MainScreen = () => {
   return (
     <div tw="space-y-4">
       <div tw="space-y-2">
-        <div tw="flex flex-wrap h-72">
+        <div tw="flex flex-wrap h-96">
           <div
-            tw="w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
+            tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80')`,
             }}>
-            <div tw="p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
-              <div tw="text-lg text-nier-dark-brown font-manrope"> Hello! </div>
+            <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
+              <div tw="space-y-2">
+                <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
+                  Descriptions? UUID Action {$action}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -167,16 +171,55 @@ export const MainScreen = () => {
           <ShutterButton action="fr" text="FR" />
         </div>
       </div>
+    </div>
+  );
+};
 
+export const ShipScreen = () => {
+  const $kbve = useStore(kbve$);
+
+  return (
+    <Wrap
+      img="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
+      text="Entered the Ship">
+      <ShutterButton action="repair" text="Repair" />
+      <ShutterButton action="refuel" text="Refuel" />
+      <ShutterButton action="port" text="SpacePort" />
+
+    </Wrap>
+  );
+};
+
+export const Wrap = (props) => {
+  const $kbve = useStore(kbve$);
+
+  return (
+    <div tw="space-y-4">
       <div tw="space-y-2">
-        <a rel="noopener noreferrer" href="#" tw="block">
-          <h3 tw="text-xl font-semibold">Username Here</h3>
-        </a>
-        <p tw="text-nier-dark-brown">Descriptions? UUID Action {$action}</p>
+        <div tw="flex flex-wrap h-96">
+          <div
+            tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
+            style={{
+              backgroundImage: `url('${props.img}')`,
+            }}>
+            <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
+              <div tw="space-y-2">
+                <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
+                  {props.text}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
+          {props.children}
+        </div>
       </div>
     </div>
   );
 };
+
+export const MenuScreen = () => {};
 
 export const Scene = () => {
   const $scene = useStore(scene$);
@@ -184,6 +227,8 @@ export const Scene = () => {
   switch ($scene) {
     case "MainScreen":
       return <MainScreen />;
+    case "ship":
+      return <ShipScreen />;
     default:
       return <Loader />;
   }
