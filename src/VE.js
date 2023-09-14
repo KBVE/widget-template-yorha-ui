@@ -30,7 +30,6 @@ export const kbve$ = persistentMap("kbve:", [], {
 
 export const Locker = async (__key, __data) => {
   task(async () => {
-    console.log(`Storing ${__data} into locker for ${__key}`);
     kbve$.setKey(__key, __data);
   });
 };
@@ -51,8 +50,28 @@ export const Tasker = async (__task, __data) => {
   });
 };
 
+export const Scene = () => {
+  const $scene = useStore(scene$);
+
+  switch ($scene) {
+    case "main":
+      return <MainScreen />;
+    case "ship":
+      return <ShipScreen />;
+    case "port":
+      return <PortScreen />;
+    case "repair":
+      return <RepairScreen />;
+    case "refuel":
+      return <RefuelScreen />;
+    default:
+      return <Loader />;
+  }
+};
+
 export const Init = async () => {
   task(async () => {
+    //TODO Appwrite Execution Here.
     const client = new Client()
       .setEndpoint("https://ap.kbve.com/v1")
       .setProject("[PROJECT_ID]");
@@ -60,9 +79,17 @@ export const Init = async () => {
   });
 };
 
-export const zeroCool = () => {};
+export const zeroCool = () => {
+  //TODO Function Execution Here.
+};
 
-//?       [BUTTONS]
+//?       [DX]
+
+export const DX = () => {
+
+}
+
+//?       [UI]
 
 export const berserkButton = ({ scene, text }) => {
   const handleClick = async () => {
@@ -116,7 +143,7 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
       className="group"
       onClick={handleClick}
       tw="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-nier-red rounded-full shadow-md">
-      <span tw="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-nier-brown group-hover:translate-x-0 ease-in-out">
+      <span tw="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full group-hover:translate-x-0 ease-in-out">
         {svg}
       </span>
       <span tw="absolute flex items-center justify-center w-full h-full text-nier-red transition-all duration-300 transform group-hover:translate-x-full ease-in-out">
@@ -127,8 +154,7 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
   );
 };
 
-//?       [SCENE]
-
+//?       [UX]
 export const Loader = () => {
   return (
     <div tw="space-y-4 grid place-items-center">
@@ -141,52 +167,6 @@ export const Loader = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export const MainScreen = () => {
-  const $action = useStore(action$);
-
-  return (
-    <div tw="space-y-4">
-      <div tw="space-y-2">
-        <div tw="flex flex-wrap h-96">
-          <div
-            tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80')`,
-            }}>
-            <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
-              <div tw="space-y-2">
-                <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
-                  Descriptions? UUID Action {$action}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
-          <ShutterButton action="en" text="DE" />
-          <ShutterButton action="de" text="DE" />
-          <ShutterButton action="fr" text="FR" />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const ShipScreen = () => {
-  const $kbve = useStore(kbve$);
-
-  return (
-    <Wrap
-      img="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
-      text="Entered the Ship">
-      <ShutterButton action="repair" text="Repair" />
-      <ShutterButton action="refuel" text="Refuel" />
-      <ShutterButton action="port" text="SpacePort" />
-
-    </Wrap>
   );
 };
 
@@ -219,17 +199,38 @@ export const Wrap = (props) => {
   );
 };
 
-export const MenuScreen = () => {};
+export const MainScreen = () => {
+  const $action = useStore(action$);
 
-export const Scene = () => {
-  const $scene = useStore(scene$);
-
-  switch ($scene) {
-    case "MainScreen":
-      return <MainScreen />;
-    case "ship":
-      return <ShipScreen />;
-    default:
-      return <Loader />;
-  }
+  return (
+    <Wrap
+      img="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
+      text="Welcome to YoRHa">
+      <ShutterButton action="en" text="DE" />
+      <ShutterButton action="de" text="DE" />
+      <ShutterButton action="fr" text="FR" />
+    </Wrap>
+  );
 };
+
+export const ShipScreen = () => {
+  const $kbve = useStore(kbve$);
+
+  return (
+    <Wrap
+      img="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
+      text="You have entered your ship!">
+      <ShutterButton action="repair" text="Repair" />
+      <ShutterButton action="refuel" text="Refuel" />
+      <ShutterButton action="port" text="SpacePort" />
+    </Wrap>
+  );
+};
+
+export const PortScreen = () => {};
+
+export const RefuelScreen = () => {};
+
+export const RepairScreen = () => {};
+
+export const MenuScreen = () => {};
