@@ -1,40 +1,9 @@
 import React from "react";
 import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
-import Phaser from "phaser";
-import GridEngine from "grid-engine";
+
 import { useStore } from "@nanostores/react";
 
-export const GameComponent = () => {
-  const game = new Phaser.Game({
-    type: Phaser.CANVAS,
-    title: "yorha",
-    parent: document.getElementById("game-content"),
-    canvas: document.getElementById("game-canvas"),
-    localStorageName: "yorha",
-    width: 350,
-    height: 224,
-    autoRound: false,
-    pixelArt: true,
-    scene: [],
-    physics: {
-      default: "arcade",
-    },
-    plugins: {
-      scene: [
-        {
-          key: "gridEngine",
-          plugin: GridEngine,
-          mapping: "gridEngine",
-        },
-      ],
-    },
-    backgroundColor: "#3A3A3A",
-  });
-  window.game = game;
-
-  //return (<div id="game-content" />);
-};
 
 export const KBVE = () => {
   const mounted = React.useRef(false);
@@ -95,7 +64,7 @@ export const KBVE = () => {
           </div>
           <div>
               ALPHA-v1.0.1
-            </div>
+          </div>
         </div>
       </div>
     </div>
