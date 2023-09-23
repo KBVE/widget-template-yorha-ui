@@ -7,6 +7,14 @@ import { Client, Account } from "appwrite";
 
 import tw, { styled } from "twin.macro";
 
+//?       [APPWRITE]
+
+const client = new Client()
+      .setEndpoint("https://panel.kbve.com/v1")
+      .setProject("kbve");
+
+      const account = new Account(client);
+
 //?       [STORAGE]
 
 export const load$ = atom(true);
@@ -30,6 +38,7 @@ export const kbve$ = persistentMap("kbve:", [], {
 
 export const Locker = async (__key, __data) => {
   task(async () => {
+    console.log(`[LOCKER] ${__data} into locker for ${__key}`);
     kbve$.setKey(__key, __data);
   });
 };
@@ -56,6 +65,8 @@ export const Scene = () => {
   switch ($scene) {
     case "main":
       return <MainScreen />;
+    case "menu":
+      return <MenuScreen />;
     case "ship":
       return <ShipScreen />;
     case "port":
@@ -72,10 +83,7 @@ export const Scene = () => {
 export const Init = async () => {
   task(async () => {
     //TODO Appwrite Execution Here.
-    const client = new Client()
-      .setEndpoint("https://ap.kbve.com/v1")
-      .setProject("[PROJECT_ID]");
-    const account = new Account(client);
+    
   });
 };
 
@@ -85,9 +93,7 @@ export const zeroCool = () => {
 
 //?       [DX]
 
-export const DX = () => {
-
-}
+export const DX = () => {};
 
 //?       [UI]
 
@@ -170,6 +176,11 @@ export const Loader = () => {
   );
 };
 
+export const GameOptions = () => {
+
+}
+
+
 export const Wrap = (props) => {
   const $kbve = useStore(kbve$);
 
@@ -203,13 +214,12 @@ export const MainScreen = () => {
   const $action = useStore(action$);
 
   return (
-    <Wrap
-      img="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
-      text="Welcome to YoRHa">
+      <>
       <ShutterButton action="en" text="DE" />
       <ShutterButton action="de" text="DE" />
       <ShutterButton action="fr" text="FR" />
-    </Wrap>
+      <br />
+      </>
   );
 };
 
@@ -233,4 +243,16 @@ export const RefuelScreen = () => {};
 
 export const RepairScreen = () => {};
 
-export const MenuScreen = () => {};
+export const MenuScreen = () => {
+  const $action = useStore(action$);
+
+  return (
+    <Wrap
+      img="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
+      text="Welcome to YoRHa">
+      <ShutterButton action="en" text="DE" />
+      <ShutterButton action="de" text="DE" />
+      <ShutterButton action="fr" text="FR" />
+    </Wrap>
+  );
+};

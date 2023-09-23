@@ -1,13 +1,48 @@
 import React from "react";
 import * as VE from "./VE";
-
 import tw, { styled } from "twin.macro";
+import Phaser from "phaser";
+import GridEngine from "grid-engine";
+
+
+export const GameComponent = () => {
+  const game = new Phaser.Game({
+    type: Phaser.CANVAS,
+    title: 'yorha',
+    parent:  document.getElementById('game-content'),
+    canvas: document.getElementById('game-canvas'),
+    localStorageName: 'yorha',
+    width: 350,
+    height: 224,
+    autoRound: false,
+    pixelArt: true,
+    scene: [
+    ],
+    physics: {
+        default: 'arcade',
+      },
+      plugins: {
+        scene: [
+          {
+            key: 'gridEngine',
+            plugin: GridEngine,
+            mapping: 'gridEngine',
+          },
+        ],
+      },
+      backgroundColor: '#3A3A3A',
+  });
+  window.game = game;
+
+  //return (<div id="game-content" />);
+}
 
 export const KBVE = () => {
 
   const mounted = React.useRef(false);
 
  React.useEffect(() => {
+        GameComponent();
        mounted.current = true;
        setTimeout(() => VE.Tasker("scene", "main"), 1000)
        //VE.Tasker("scene", "MainScreen");
@@ -42,7 +77,13 @@ export const KBVE = () => {
       </div>
 
       <VE.Scene />
-      
+
+  
+          <div id="game-root" tw="flex justify-between">
+              <canvas id="game-canvas"></canvas>
+          </div>
+
+
     </div>
   );
 };
