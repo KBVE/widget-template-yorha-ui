@@ -10,10 +10,10 @@ import tw, { styled } from "twin.macro";
 //?       [APPWRITE]
 
 const client = new Client()
-      .setEndpoint("https://panel.kbve.com/v1")
-      .setProject("kbve");
+  .setEndpoint("https://panel.kbve.com/v1")
+  .setProject("kbve");
 
-      const account = new Account(client);
+const account = new Account(client);
 
 //?       [STORAGE]
 
@@ -83,7 +83,6 @@ export const Scene = () => {
 export const Init = async () => {
   task(async () => {
     //TODO Appwrite Execution Here.
-    
   });
 };
 
@@ -107,7 +106,8 @@ export const berserkButton = ({ scene, text }) => {
       //disabled={load$}
       className="group"
       onClick={handleClick}
-      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300">
+      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
+    >
       <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
       <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
         {text}
@@ -126,7 +126,8 @@ export const ShutterButton = ({ action, text }) => {
       //disabled={load$}
       className="group"
       onClick={handleClick}
-      tw="relative px-5 py-3 overflow-hidden font-medium text-nier-dark-brown bg-[#bab5a1] border border-nier-dark-brown rounded-lg shadow-inner ">
+      tw="relative px-5 py-3 overflow-hidden font-medium text-nier-dark-brown bg-[#bab5a1] border border-nier-dark-brown rounded-lg shadow-inner "
+    >
       <span tw="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease-in-out"></span>
       <span tw="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease-in-out"></span>
       <span tw="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#454138]/80 group-hover:h-full ease-in-out"></span>
@@ -148,7 +149,8 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
     <button
       className="group"
       onClick={handleClick}
-      tw="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-nier-red rounded-full shadow-md">
+      tw="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-nier-red rounded-full shadow-md"
+    >
       <span tw="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full group-hover:translate-x-0 ease-in-out">
         {svg}
       </span>
@@ -164,8 +166,8 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
 export const Loader = () => {
   return (
     <div tw="space-y-4 grid place-items-center">
-      <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-72">
-        <div tw="h-48 rounded-t bg-[#57544a]"></div>
+      <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-16">
+        <div tw="h-24 rounded-t bg-[#57544a]"></div>
         <div tw="flex-1 px-4 py-8 space-y-4 sm:p-8 bg-gray-900">
           <div tw="w-full h-6 rounded bg-[#57544a]"></div>
           <div tw="w-full h-6 rounded bg-[#57544a]"></div>
@@ -176,35 +178,20 @@ export const Loader = () => {
   );
 };
 
-export const GameOptions = () => {
-
-}
-
+export const GameOptions = () => {};
 
 export const Wrap = (props) => {
   const $kbve = useStore(kbve$);
 
   return (
-    <div tw="z-10 space-y-4">
+    <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
       <div tw="space-y-2">
-        <div tw="flex flex-wrap h-96">
-          <div
-            tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
-            style={{
-              backgroundImage: `url('${props.img}')`,
-            }}>
-            <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
-              <div tw="space-y-2">
-                <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
-                  {props.text}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
+          {props.text}
         </div>
-        <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
-          {props.children}
-        </div>
+      </div>
+      <div tw="flex items-center text-xs rounded text-[#3F3D36] space-x-2">
+        {props.children}
       </div>
     </div>
   );
@@ -213,23 +200,29 @@ export const Wrap = (props) => {
 export const MainScreen = () => {
   const $action = useStore(action$);
 
+  Locker(
+    "img",
+    "https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+  );
+
   return (
-      <>      <ShutterButton action="en" text="DE" />
+    <Wrap text="Main">
+      <ShutterButton action="en" text="DE" />
       <ShutterButton action="de" text="DE" />
       <ShutterButton action="fr" text="FR" />
-
-
-      </>
+    </Wrap>
   );
 };
 
 export const ShipScreen = () => {
   const $kbve = useStore(kbve$);
 
+  Locker(
+    "img",
+    "https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
+  );
   return (
-    <Wrap
-      img="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
-      text="You have entered your ship!">
+    <Wrap text="Welcome to the Ship!">
       <ShutterButton action="repair" text="Repair" />
       <ShutterButton action="refuel" text="Refuel" />
       <ShutterButton action="port" text="SpacePort" />
@@ -244,12 +237,15 @@ export const RefuelScreen = () => {};
 export const RepairScreen = () => {};
 
 export const MenuScreen = () => {
-  const $action = useStore(action$);
+  //const $action = useStore(action$);
+
+  Locker(
+    "img",
+    'https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"'
+  );
 
   return (
-    <Wrap
-      img="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
-      text="Welcome to YoRHa">
+    <Wrap text="Menu">
       <ShutterButton action="en" text="DE" />
       <ShutterButton action="de" text="DE" />
       <ShutterButton action="fr" text="FR" />

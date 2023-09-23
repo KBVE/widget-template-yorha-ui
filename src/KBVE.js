@@ -3,6 +3,7 @@ import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
 import Phaser from "phaser";
 import GridEngine from "grid-engine";
+import { useStore } from "@nanostores/react";
 
 export const GameComponent = () => {
   const game = new Phaser.Game({
@@ -38,6 +39,8 @@ export const GameComponent = () => {
 export const KBVE = () => {
   const mounted = React.useRef(false);
 
+  const $kbve = useStore(VE.kbve$);
+
   React.useEffect(() => {
     GameComponent();
     mounted.current = true;
@@ -53,7 +56,8 @@ export const KBVE = () => {
       tw="sm:min-w-[250px] md:min-w-[300px] md:max-w-[720px] min-h-[550px] max-h-[550px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden bg-cover bg-center bg-blend-darken"
       style={{
         backgroundImage: `url(https://kbve.com/assets/img/curved-images/wave.jpg)`,
-      }}>
+      }}
+    >
       <div tw="flex justify-between pb-4 ">
         <div tw="flex items-center space-x-4 scale-75 md:scale-90">
           <VE.berserkButton scene="menu" text="Menu" />
@@ -69,11 +73,30 @@ export const KBVE = () => {
           }
         />
       </div>
-      <div>
-        <div id="game-root" tw="z-20 flex shrink-0 grow-0 min-w-[350px] min-h-[224px] w-full">
-          <canvas id="game-canvas" tw="z-30"></canvas>
-        </div>  
-        <VE.Scene />
+      <div tw="z-10 space-y-4">
+        <div tw="space-y-2">
+          <div tw="flex flex-wrap h-96">
+            <div
+              tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
+              style={{
+                backgroundImage: `url('${$kbve.img}')`,
+              }}
+            >
+              <div
+                id="game-root"
+                tw="mt-3 space-x-1 z-20 flex shrink-0 grow-0 min-w-[350px] min-h-[224px] w-full"
+              >
+                <canvas id="game-canvas" tw="z-30"></canvas>
+              </div>
+              <VE.Scene />
+            </div>
+
+           
+          </div>
+          <div>
+              ALPHA-v1.0.1
+            </div>
+        </div>
       </div>
     </div>
   );
