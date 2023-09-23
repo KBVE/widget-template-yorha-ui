@@ -4,53 +4,49 @@ import tw, { styled } from "twin.macro";
 import Phaser from "phaser";
 import GridEngine from "grid-engine";
 
-
 export const GameComponent = () => {
   const game = new Phaser.Game({
     type: Phaser.CANVAS,
-    title: 'yorha',
-    parent:  document.getElementById('game-content'),
-    canvas: document.getElementById('game-canvas'),
-    localStorageName: 'yorha',
+    title: "yorha",
+    parent: document.getElementById("game-content"),
+    canvas: document.getElementById("game-canvas"),
+    localStorageName: "yorha",
     width: 350,
     height: 224,
     autoRound: false,
     pixelArt: true,
-    scene: [
-    ],
+    scene: [],
     physics: {
-        default: 'arcade',
-      },
-      plugins: {
-        scene: [
-          {
-            key: 'gridEngine',
-            plugin: GridEngine,
-            mapping: 'gridEngine',
-          },
-        ],
-      },
-      backgroundColor: '#3A3A3A',
+      default: "arcade",
+    },
+    plugins: {
+      scene: [
+        {
+          key: "gridEngine",
+          plugin: GridEngine,
+          mapping: "gridEngine",
+        },
+      ],
+    },
+    backgroundColor: "#3A3A3A",
   });
   window.game = game;
 
   //return (<div id="game-content" />);
-}
+};
 
 export const KBVE = () => {
-
   const mounted = React.useRef(false);
 
- React.useEffect(() => {
-        GameComponent();
-       mounted.current = true;
-       setTimeout(() => VE.Tasker("scene", "main"), 1000)
-       //VE.Tasker("scene", "MainScreen");
-       return () => {
-           mounted.current = false;
-       };
-   }, []);
-
+  React.useEffect(() => {
+    GameComponent();
+    mounted.current = true;
+    setTimeout(() => VE.Tasker("scene", "main"), 1000);
+    //VE.Tasker("scene", "MainScreen");
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   return (
     <div
@@ -61,9 +57,7 @@ export const KBVE = () => {
       <div tw="flex justify-between pb-4 ">
         <div tw="flex items-center space-x-4 scale-75 md:scale-90">
           <VE.berserkButton scene="menu" text="Menu" />
-          <VE.berserkButton scene="ship" text="Ship" /> 
-
-
+          <VE.berserkButton scene="ship" text="Ship" />
         </div>
         <VE.shitOnMemeButton
           scene="main"
@@ -75,15 +69,12 @@ export const KBVE = () => {
           }
         />
       </div>
-
-      <VE.Scene />
-
-  
-          <div id="game-root" tw="flex justify-between">
-              <canvas id="game-canvas"></canvas>
-          </div>
-
-
+      <div>
+        <div id="game-root" tw="z-20 flex shrink-0 grow-0 min-w-[350px] min-h-[224px] w-full">
+          <canvas id="game-canvas" tw="z-30"></canvas>
+        </div>  
+        <VE.Scene />
+      </div>
     </div>
   );
 };

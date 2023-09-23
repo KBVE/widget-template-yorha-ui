@@ -185,7 +185,7 @@ export const Wrap = (props) => {
   const $kbve = useStore(kbve$);
 
   return (
-    <div tw="space-y-4">
+    <div tw="z-10 space-y-4">
       <div tw="space-y-2">
         <div tw="flex flex-wrap h-96">
           <div
@@ -214,11 +214,11 @@ export const MainScreen = () => {
   const $action = useStore(action$);
 
   return (
-      <>
-      <ShutterButton action="en" text="DE" />
+      <>      <ShutterButton action="en" text="DE" />
       <ShutterButton action="de" text="DE" />
       <ShutterButton action="fr" text="FR" />
-      <br />
+
+
       </>
   );
 };
