@@ -1,9 +1,11 @@
 import React from "react";
 import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
+import { useStore } from "@nanostores/react";
+
 import Phaser from "phaser";
 import GridEngine from "grid-engine";
-import { useStore } from "@nanostores/react";
+import GameScene from "./scene/GameScene";
 
 export const GameComponent = () => {
   const game = new Phaser.Game({
@@ -16,7 +18,7 @@ export const GameComponent = () => {
     height: 224,
     autoRound: false,
     pixelArt: true,
-    scene: [],
+    scene: [ GameScene ],
     physics: {
       default: "arcade",
     },
@@ -33,17 +35,21 @@ export const GameComponent = () => {
   });
   window.game = game;
 
-  //return (<div id="game-content" />);
+return (<div id="game-content" />);
 };
+
+export const __bg = () => {
+  const $kbve = useStore(VE.kbve$);
+  return $kbve.img;
+}
 
 export const KBVE = () => {
   const mounted = React.useRef(false);
 
-  const $kbve = useStore(VE.kbve$);
 
   React.useEffect(() => {
-    GameComponent();
     mounted.current = true;
+    setTimeout(() => GameComponent(), 1000);
     setTimeout(() => VE.Tasker("scene", "main"), 1000);
     //VE.Tasker("scene", "MainScreen");
     return () => {
@@ -79,7 +85,7 @@ export const KBVE = () => {
             <div
               tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
               style={{
-                backgroundImage: `url('${$kbve.img}')`,
+                backgroundImage: `url('${__bg()}')`,
               }}
             >
               <div

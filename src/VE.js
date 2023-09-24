@@ -7,6 +7,14 @@ import { Client, Account } from "appwrite";
 
 import tw, { styled } from "twin.macro";
 
+//?       [Game]
+
+
+export const __bg = () => {
+  const { $kbve } = useStore(VE.kbve$);
+  return $kbve.img;
+}
+
 //?       [APPWRITE]
 
 const client = new Client()
@@ -35,6 +43,7 @@ export const kbve$ = persistentMap("kbve:", [], {
 });
 
 //?       [FUNCTIONS]
+
 
 export const Locker = async (__key, __data) => {
   task(async () => {
@@ -181,7 +190,7 @@ export const Loader = () => {
 export const GameOptions = () => {};
 
 export const Wrap = (props) => {
-  const $kbve = useStore(kbve$);
+//  const $kbve = useStore(kbve$);
 
   return (
     <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
@@ -198,7 +207,6 @@ export const Wrap = (props) => {
 };
 
 export const MainScreen = () => {
-  const $action = useStore(action$);
 
   Locker(
     "img",
@@ -215,7 +223,6 @@ export const MainScreen = () => {
 };
 
 export const ShipScreen = () => {
-  const $kbve = useStore(kbve$);
 
   Locker(
     "img",
