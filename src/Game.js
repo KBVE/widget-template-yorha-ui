@@ -2,7 +2,7 @@
 //?       [CREDIT] -> Drew Conley and the Danger Crew Team
 import React from "react";  //? [REACT] https://kbve.com/application/javascript/#react
 import { useStore } from "@nanostores/react"; //? [NANOSTORES] https://kbve.com/application/javascript/#nanostores
-import { x$, y$, kbve$, LeftLimit$, RightLimit$, TopLimit$, BottomLimit$ } from "./KB";     //? [STORAGE] https://kbve.com/project/api/#locker-information
+import { x$, y$, kbve$, LeftLimit$, RightLimit$, TopLimit$, BottomLimit$, game$, character$, map$ } from "./KB";     //? [STORAGE] https://kbve.com/project/api/#locker-information
 
 const Game = () => {
 
@@ -12,6 +12,11 @@ const Game = () => {
     const $rightLimit = useStore(RightLimit$);
     const $topLimit = useStore(TopLimit$);
     const $bottomLimit = useStore(BottomLimit$);
+    const $game = useStore(game$);
+
+    const $map = useStore(map$);
+    const $character = useStore(character$);
+
 
     const character = React.useRef();
     const map = React.useRef();

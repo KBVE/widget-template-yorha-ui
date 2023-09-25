@@ -18,7 +18,7 @@ export const KBVE = () => {
 
   return (
     <div
-      tw="sm:min-w-[250px] md:min-w-[300px] md:max-w-[720px] min-h-[550px] max-h-[550px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden bg-cover bg-center bg-blend-darken"
+      tw="sm:min-w-[250px] md:min-w-[300px] max-w-[380px] min-h-[550px] max-h-[550px] p-4 shadow-md bg-[#D1CDB7] rounded-3xl overflow-x-hidden overflow-y-hidden bg-cover bg-center bg-blend-darken"
       style={{
         backgroundImage: `url(https://kbve.com/assets/img/curved-images/wave.jpg)`,
       }}
@@ -56,7 +56,7 @@ export const KBVE = () => {
            
           </div>
           <div>
-              ALPHA-v1.0.1
+              ALPHA-v1.0.2
             </div>
         </div>
       </div>
