@@ -1,4 +1,4 @@
-import { atom, task } from "nanostores";
+import { atom, task, action } from "nanostores";
 import { persistentMap } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import React from "react";
@@ -15,6 +15,9 @@ export const __bg = () => {
   return $kbve.img;
 }
 
+
+export 
+
 //?       [APPWRITE]
 
 const client = new Client()
@@ -24,6 +27,16 @@ const client = new Client()
 const account = new Account(client);
 
 //?       [STORAGE]
+
+//?       [STORAGE]->[CHARACTER-LOCATION]
+export const x$ = atom(90);
+export const y$ = atom(34);
+
+//?       [MAP]->[LIMIT]
+export const RightLimit$ = atom(184);
+export const LeftLimit$ = atom(-8);
+export const TopLimit$ = atom(24);
+export const BottomLimit$ = atom(112);
 
 export const load$ = atom(true);
 export const scene$ = atom("");
@@ -43,6 +56,27 @@ export const kbve$ = persistentMap("kbve:", [], {
 });
 
 //?       [FUNCTIONS]
+
+
+export const xGPS = action(x$, 'alterX', (store, add = 0) => {
+  if(((store.get() + add) > LeftLimit$.get()) && ((store.get() + add) < RightLimit$.get()))
+  {
+    console.log('Adding X');
+  store.set(store.get() + add);
+  }
+  console.log(store.get());
+  return store.get();
+});
+
+export const yGPS = action(y$, 'alterY', (store, add = 0) => {
+  if(((store.get() + add) > TopLimit$.get()) && ((store.get() + add) < BottomLimit$.get()))
+  {
+    console.log('Adding Y')
+  store.set(store.get() + add);
+  }
+  
+  return store.get();
+});
 
 
 export const Locker = async (__key, __data) => {

@@ -41,7 +41,7 @@ const CustomStyles = createGlobalStyle`
 
 .map {
   image-rendering: pixelated;
-  background-image: url("https://storage.ko-fi.com/cdn/useruploads/display/202eb88d-84be-4fd7-a81c-41e678a6d11d_1.png");
+  background-image: url("https://i.pinimg.com/originals/82/79/b7/8279b776796faee8dc5fe80857d6593b.gif");
   background-size: 100%;
   width: calc(13 * var(--grid-cell));
   height: calc(10 * var(--grid-cell));

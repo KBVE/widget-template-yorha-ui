@@ -52,7 +52,7 @@ export const KBVE = () => {
             <div
               tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
               style={{
-                backgroundImage: `url('')`,
+                backgroundImage: `url('https://storage.ko-fi.com/cdn/useruploads/display/202eb88d-84be-4fd7-a81c-41e678a6d11d_1.png')`,
               }}
             >
               <div id="game">

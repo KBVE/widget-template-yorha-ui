@@ -1,28 +1,20 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
-import styled from "styled-components";
-
-//TODO: Root might have to be injected? It might not be able to work from this aspect.
+import { x$, y$, xGPS, yGPS } from "./VE";
 
 const Game = () => {
-  // var character = document.querySelector(".character");
-  // var map = document.querySelector(".map");
 
-  const character = React.useRef();
-  const map = React.useRef();
+    const $x = useStore(x$);
+    const $y = useStore(y$);
+    const character = React.useRef();
+    const map = React.useRef();
 
-  const upPad = React.useRef();
-  const downPad = React.useRef();
-  const leftPad = React.useRef();
-  const rightPad = React.useRef();
-  const pausePad = React.useRef();
+  
+    var x = $x;
+    var y = $y;
 
-  const [isPressed, setPressed] = React.useState(false);
-
-  var x = 90;
-  var y = 34;
-  let held_directions = []; //State of which arrow keys we are holding down
-  var speed = 1; //How fast the character moves in pixels per frame
+    let held_directions = []; 
+    var speed = 1; 
 
   const placeCharacter = () => {
     var pixelSize = parseInt(
@@ -34,16 +26,20 @@ const Game = () => {
     const held_direction = held_directions[0];
     if (held_direction) {
       if (held_direction === directions.right) {
-        x += speed;
+        //x += speed;
+        xGPS(1);
       }
       if (held_direction === directions.left) {
-        x -= speed;
+        //x -= speed;
+        xGPS(-1);
       }
       if (held_direction === directions.down) {
-        y += speed;
+        //y += speed;
+        yGPS(1);
       }
       if (held_direction === directions.up) {
-        y -= speed;
+        //y -= speed;
+        yGPS(-1);
       }
       character.current.setAttribute("facing", held_direction);
     }
@@ -73,14 +69,16 @@ const Game = () => {
     var camera_left = pixelSize * 66;
     var camera_top = pixelSize * 42;
 
+    console.log(`Map X ${x} Y ${y} `)
     map.current.style.transform = `translate3d( ${
-      -x * pixelSize + camera_left
-    }px, ${-y * pixelSize + camera_top}px, 0 )`;
-    character.current.style.transform = `translate3d( ${x * pixelSize}px, ${
-      y * pixelSize
+      -$x * pixelSize + camera_left
+    }px, ${-$y * pixelSize + camera_top}px, 0 )`;
+    character.current.style.transform = `translate3d( ${$x * pixelSize}px, ${
+      $y * pixelSize
     }px, 0 )`;
   };
 
+  
   const directions = {
     up: "up",
     down: "down",
@@ -138,14 +136,16 @@ const Game = () => {
     // upPad.current.dispatchEvent(new KeyboardEvent('keypress', {
     //     key: directions.up,
     //   }));
-
     const step = () => {
-      placeCharacter();
-      window.requestAnimationFrame(() => {
-        step();
-      });
-    };
-    step();
+
+        placeCharacter();
+
+        window.requestAnimationFrame(() => {
+          step();
+        });
+      };
+      step();
+  
   }, []);
 
   return (
@@ -172,7 +172,6 @@ const Game = () => {
             <div className="DemoDirectionUI flex-center">
               <button
                 className="dpad-button dpad-left"
-                ref={leftPad}
                 onClick={handleLeft}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +213,7 @@ const Game = () => {
 
               <button
                 className="dpad-button dpad-pause"
-                ref={pausePad}
+                
                 onClick={handlePause}>
                 {" "}
                 
@@ -231,7 +230,6 @@ const Game = () => {
               </button>
               <button
                 className="dpad-button dpad-up"
-                ref={upPad}
                 onClick={handleUp}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +270,6 @@ const Game = () => {
               </button>
               <button
                 className="dpad-button dpad-down"
-                ref={downPad}
                 onClick={handleDown}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -313,7 +310,6 @@ const Game = () => {
               </button>
               <button
                 className="dpad-button dpad-right"
-                ref={rightPad}
                 onClick={handleRight}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
