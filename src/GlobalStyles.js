@@ -6,8 +6,8 @@ const CustomStyles = createGlobalStyle`
 :root {
   --pixel-size: 2px;
   --grid-cell: calc( var(--pixel-size) * 16);
-  --bg: #9fa7e4;
-  --game-map: "";
+  --game-map: url("https://i.pinimg.com/originals/82/79/b7/8279b776796faee8dc5fe80857d6593b.gif");
+  --character-sprite: url("https://assets.codepen.io/21542/DemoRpgCharacter.png");
 }
 
 .pixel-art {
@@ -31,7 +31,7 @@ const CustomStyles = createGlobalStyle`
 
 .map {
   image-rendering: pixelated;
-  background-image: url("https://i.pinimg.com/originals/82/79/b7/8279b776796faee8dc5fe80857d6593b.gif");
+  background-image: var(--game-map);
   background-size: 100%;
   width: calc(13 * var(--grid-cell));
   height: calc(10 * var(--grid-cell));
@@ -57,7 +57,7 @@ const CustomStyles = createGlobalStyle`
 
 .character_spritesheet {
   position: absolute;
-  background: url("https://assets.codepen.io/21542/DemoRpgCharacter.png") no-repeat no-repeat;
+  background: var(--character-sprite) no-repeat no-repeat;
   background-size: 100%;
   width: calc( var(--grid-cell)* 8 );
   height: calc( var(--grid-cell)* 8 );

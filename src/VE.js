@@ -26,9 +26,19 @@ const client = new Client()
 
 const account = new Account(client);
 
-//?       [STORAGE]
+//!       [STORAGE] -> Migrated to KB.js
+
 
 //?       [FUNCTIONS]
+
+export const AlterCSS = async (__var, __sheet) => {
+  
+  document.documentElement.style.setProperty(
+    `--${__var}`,
+    `url("${__sheet}")`
+  );
+
+}
 
 export const Locker = async (__key, __data) => {
   task(async () => {
@@ -92,6 +102,21 @@ export const zeroCool = () => {
     Locker('map', '');
   });
 };
+
+//TODO    [LISTEN]
+
+action$.subscribe(value => {
+  console.log(`[ACTION] TRIGGER ${value}`)
+  switch (value) { 
+    case "fud":
+        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-EMMY-SHEET.png')
+    case "zig":
+        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-HANK-2-SHEET.png')
+    case "dog":
+        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-BEAR-SHEET.png')
+  }
+})
+
 
 //?       [DX]
 
@@ -209,9 +234,9 @@ export const MainScreen = () => {
 
   return (
     <Wrap text="Main">
-      <ShutterButton action="en" text="DE" />
-      <ShutterButton action="de" text="DE" />
-      <ShutterButton action="fr" text="FR" />
+      <ShutterButton action="zig" text="Zig" />
+      <ShutterButton action="dog" text="Dog" />
+      <ShutterButton action="fud" text="Fud" />
     </Wrap>
   );
 };
