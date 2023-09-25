@@ -2,41 +2,8 @@ import React from "react";
 import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
 import { useStore } from "@nanostores/react";
+import Game from './Game';
 
-import Phaser from "phaser";
-import GridEngine from "grid-engine";
-import GameScene from "./scene/GameScene";
-
-export const GameComponent = () => {
-  const game = new Phaser.Game({
-    type: Phaser.CANVAS,
-    title: "yorha",
-    parent: document.getElementById("game-content"),
-    canvas: document.getElementById("game-canvas"),
-    localStorageName: "yorha",
-    width: 350,
-    height: 224,
-    autoRound: false,
-    pixelArt: true,
-    scene: [ GameScene ],
-    physics: {
-      default: "arcade",
-    },
-    plugins: {
-      scene: [
-        {
-          key: "gridEngine",
-          plugin: GridEngine,
-          mapping: "gridEngine",
-        },
-      ],
-    },
-    backgroundColor: "#3A3A3A",
-  });
-  window.game = game;
-
-return (<div id="game-content" />);
-};
 
 export const __bg = () => {
   const $kbve = useStore(VE.kbve$);
@@ -49,7 +16,7 @@ export const KBVE = () => {
 
   React.useEffect(() => {
     mounted.current = true;
-    setTimeout(() => GameComponent(), 1000);
+    //setTimeout(() => GameComponent(), 1000);
     setTimeout(() => VE.Tasker("scene", "main"), 1000);
     //VE.Tasker("scene", "MainScreen");
     return () => {
@@ -79,7 +46,7 @@ export const KBVE = () => {
           }
         />
       </div>
-      <div tw="z-10 space-y-4">
+      <div tw="space-y-4">
         <div tw="space-y-2">
           <div tw="flex flex-wrap h-96">
             <div
@@ -88,11 +55,8 @@ export const KBVE = () => {
                 backgroundImage: `url('${__bg()}')`,
               }}
             >
-              <div
-                id="game-root"
-                tw="mt-3 space-x-1 z-20 flex shrink-0 grow-0 min-w-[350px] min-h-[224px] w-full"
-              >
-                <canvas id="game-canvas" tw="z-30"></canvas>
+              <div id="game">
+              <Game />
               </div>
               <VE.Scene />
             </div>
