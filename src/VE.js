@@ -16,8 +16,6 @@ export const __bg = () => {
 }
 
 
-export 
-
 //?       [APPWRITE]
 
 const client = new Client()
@@ -56,28 +54,6 @@ export const kbve$ = persistentMap("kbve:", [], {
 });
 
 //?       [FUNCTIONS]
-
-
-export const xGPS = action(x$, 'alterX', (store, add = 0) => {
-  if(((store.get() + add) > LeftLimit$.get()) && ((store.get() + add) < RightLimit$.get()))
-  {
-    console.log('Adding X');
-  store.set(store.get() + add);
-  }
-  console.log(store.get());
-  return store.get();
-});
-
-export const yGPS = action(y$, 'alterY', (store, add = 0) => {
-  if(((store.get() + add) > TopLimit$.get()) && ((store.get() + add) < BottomLimit$.get()))
-  {
-    console.log('Adding Y')
-  store.set(store.get() + add);
-  }
-  
-  return store.get();
-});
-
 
 export const Locker = async (__key, __data) => {
   task(async () => {
@@ -125,12 +101,21 @@ export const Scene = () => {
 
 export const Init = async () => {
   task(async () => {
-    //TODO Appwrite Execution Here.
+    zeroCool();
+    setTimeout(() => Tasker("scene", "main"), 1000);
   });
 };
 
 export const zeroCool = () => {
-  //TODO Function Execution Here.
+  task(async () => {
+    Locker('x', '90');
+    Locker('y', '34');
+    Locker('TL', '');
+    Locker('LL', '');
+    Locker('BL', '');
+    Locker('RL', '');
+    Locker('map', '');
+  });
 };
 
 //?       [DX]
@@ -227,7 +212,7 @@ export const Wrap = (props) => {
 //  const $kbve = useStore(kbve$);
 
   return (
-    <div tw="absolute inset-x-0 bottom-0 p-5 m-2 bg-[#D1CDB7]/70 rounded-3xl">
+    <div tw="absolute inset-x-0 bottom-0 p-2 m-1 bg-[#D1CDB7]/70 rounded-3xl">
       <div tw="space-y-2">
         <div tw="text-lg text-nier-dark-brown font-manrope text-nier-dark-brown">
           {props.text}

@@ -5,11 +5,6 @@ import { useStore } from "@nanostores/react";
 import Game from './Game';
 
 
-export const __bg = () => {
-  const $kbve = useStore(VE.kbve$);
-  return $kbve.img;
-}
-
 export const KBVE = () => {
   const mounted = React.useRef(false);
 
@@ -17,7 +12,7 @@ export const KBVE = () => {
   React.useEffect(() => {
     mounted.current = true;
     //setTimeout(() => GameComponent(), 1000);
-    setTimeout(() => VE.Tasker("scene", "main"), 1000);
+    VE.Init();
     //VE.Tasker("scene", "MainScreen");
     return () => {
       mounted.current = false;

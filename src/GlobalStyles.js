@@ -7,16 +7,7 @@ const CustomStyles = createGlobalStyle`
   --pixel-size: 2px;
   --grid-cell: calc( var(--pixel-size) * 16);
   --bg: #9fa7e4;
-}
-@media( min-width: 700px ) {
-  :root {
-     --pixel-size: 2px;
-  }
-}
-@media( min-width: 1000px ) {
-  :root {
-     --pixel-size: 2px;
-  }
+  --game-map: "";
 }
 
 .pixel-art {
@@ -24,7 +15,6 @@ const CustomStyles = createGlobalStyle`
 }
 
 .frame {
-  /* This is just for Pen decoration */
   width: calc(var(--pixel-size) * 160);
   height: calc(var(--pixel-size) * 144);
   z-index:1; 

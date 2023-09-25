@@ -1,6 +1,6 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
-import { x$, y$, xGPS, yGPS } from "./VE";
+import { x$, y$, kbve$ } from "./VE";
 
 const Game = () => {
 
@@ -9,7 +9,7 @@ const Game = () => {
     const character = React.useRef();
     const map = React.useRef();
 
-  
+
     var x = $x;
     var y = $y;
 
@@ -26,20 +26,20 @@ const Game = () => {
     const held_direction = held_directions[0];
     if (held_direction) {
       if (held_direction === directions.right) {
-        //x += speed;
-        xGPS(1);
+        x += speed;
+       
       }
       if (held_direction === directions.left) {
-        //x -= speed;
-        xGPS(-1);
+        x -= speed;
+      
       }
       if (held_direction === directions.down) {
-        //y += speed;
-        yGPS(1);
+        y += speed;
+       
       }
       if (held_direction === directions.up) {
-        //y -= speed;
-        yGPS(-1);
+        y -= speed;
+       
       }
       character.current.setAttribute("facing", held_direction);
     }
@@ -69,12 +69,11 @@ const Game = () => {
     var camera_left = pixelSize * 66;
     var camera_top = pixelSize * 42;
 
-    console.log(`Map X ${x} Y ${y} `)
     map.current.style.transform = `translate3d( ${
-      -$x * pixelSize + camera_left
-    }px, ${-$y * pixelSize + camera_top}px, 0 )`;
-    character.current.style.transform = `translate3d( ${$x * pixelSize}px, ${
-      $y * pixelSize
+      -x * pixelSize + camera_left
+    }px, ${-y * pixelSize + camera_top}px, 0 )`;
+    character.current.style.transform = `translate3d( ${(x) * pixelSize}px, ${
+      y * pixelSize
     }px, 0 )`;
   };
 
