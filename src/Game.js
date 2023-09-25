@@ -1,17 +1,26 @@
-import React from "react";
-import { useStore } from "@nanostores/react";
-import { x$, y$, kbve$ } from "./VE";
+//?       [GAME] -> Engine that renders the game.
+//?       [CREDIT] -> Drew Conley and the Danger Crew Team
+import React from "react";  //? [REACT] https://kbve.com/application/javascript/#react
+import { useStore } from "@nanostores/react"; //? [NANOSTORES] https://kbve.com/application/javascript/#nanostores
+import { x$, y$, kbve$, LeftLimit$, RightLimit$, TopLimit$, BottomLimit$ } from "./KB";     //? [STORAGE] https://kbve.com/project/api/#locker-information
 
 const Game = () => {
 
     const $x = useStore(x$);
     const $y = useStore(y$);
+    const $leftLimit = useStore(LeftLimit$);
+    const $rightLimit = useStore(RightLimit$);
+    const $topLimit = useStore(TopLimit$);
+    const $bottomLimit = useStore(BottomLimit$);
+
     const character = React.useRef();
     const map = React.useRef();
 
 
     var x = $x;
     var y = $y;
+
+
 
     let held_directions = []; 
     var speed = 1; 
@@ -48,11 +57,16 @@ const Game = () => {
       held_direction ? "true" : "false"
     );
 
-    //Limits (gives the illusion of walls)
-    var leftLimit = -8;
-    var rightLimit = 16 * 11 + 8;
-    var topLimit = -8 + 32;
-    var bottomLimit = 16 * 7;
+    // var leftLimit = -8;
+    // var rightLimit = 16 * 11 + 8;
+    // var topLimit = -8 + 32;
+    // var bottomLimit = 16 * 7;
+
+      var leftLimit = $leftLimit;
+      var rightLimit = $rightLimit;
+      var topLimit = $topLimit;
+      var bottomLimit = $bottomLimit;
+
     if (x < leftLimit) {
       x = leftLimit;
     }

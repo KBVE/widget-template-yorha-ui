@@ -1,9 +1,11 @@
-import { atom, task, action } from "nanostores";
-import { persistentMap } from "@nanostores/persistent";
+//?       [VE] -> Virtual Engine
+import { task } from "nanostores";
 import { useStore } from "@nanostores/react";
 import React from "react";
 
 import { Client, Account } from "appwrite";
+
+import { action$, scene$, load$, kbve$ } from './KB';
 
 import tw, { styled } from "twin.macro";
 
@@ -25,33 +27,6 @@ const client = new Client()
 const account = new Account(client);
 
 //?       [STORAGE]
-
-//?       [STORAGE]->[CHARACTER-LOCATION]
-export const x$ = atom(90);
-export const y$ = atom(34);
-
-//?       [MAP]->[LIMIT]
-export const RightLimit$ = atom(184);
-export const LeftLimit$ = atom(-8);
-export const TopLimit$ = atom(24);
-export const BottomLimit$ = atom(112);
-
-export const load$ = atom(true);
-export const scene$ = atom("");
-export const action$ = atom("");
-
-export const kbve$ = persistentMap("kbve:", [], {
-  encode(value) {
-    return JSON.stringify(value);
-  },
-  decode(value) {
-    try {
-      return JSON.parse(value);
-    } catch (error) {
-      return value;
-    }
-  },
-});
 
 //?       [FUNCTIONS]
 

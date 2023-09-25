@@ -1,7 +1,6 @@
 import React from "react";
 import * as VE from "./VE";
 import tw, { styled } from "twin.macro";
-import { useStore } from "@nanostores/react";
 import Game from './Game';
 
 
@@ -11,9 +10,7 @@ export const KBVE = () => {
 
   React.useEffect(() => {
     mounted.current = true;
-    //setTimeout(() => GameComponent(), 1000);
     VE.Init();
-    //VE.Tasker("scene", "MainScreen");
     return () => {
       mounted.current = false;
     };
