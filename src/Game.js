@@ -21,7 +21,7 @@ const Game = () => {
 
   var x = 90;
   var y = 34;
-  var held_directions = []; //State of which arrow keys we are holding down
+  let held_directions = []; //State of which arrow keys we are holding down
   var speed = 1; //How fast the character moves in pixels per frame
 
   const placeCharacter = () => {
@@ -131,7 +131,7 @@ const Game = () => {
 
   const handlePause = () => {
     console.log("Paused");
-    held_directions.unshift(0);
+    held_directions = [];
   };
 
   React.useEffect(() => {

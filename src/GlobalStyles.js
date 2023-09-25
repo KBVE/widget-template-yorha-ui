@@ -27,7 +27,6 @@ const CustomStyles = createGlobalStyle`
   /* This is just for Pen decoration */
   width: calc(var(--pixel-size) * 160);
   height: calc(var(--pixel-size) * 144);
-  outline: var(--pixel-size) solid #fff;
   z-index:1; 
   position:relative;
 }
@@ -36,7 +35,7 @@ const CustomStyles = createGlobalStyle`
   width: calc(var(--pixel-size) * 160);
   height: calc(var(--pixel-size) * 144);
   overflow: hidden;
-  background: #61ddf7;
+  background: transparent;
   position:relative;
 }
 

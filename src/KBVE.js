@@ -52,7 +52,7 @@ export const KBVE = () => {
             <div
               tw="relative w-full px-3 bg-[#3F3D36] rounded-xl bg-cover bg-blend-overlay"
               style={{
-                backgroundImage: `url('${__bg()}')`,
+                backgroundImage: `url('')`,
               }}
             >
               <div id="game">
