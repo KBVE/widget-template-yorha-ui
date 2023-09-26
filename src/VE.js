@@ -32,7 +32,7 @@ const account = new Account(client);
 //?       [FUNCTIONS]
 
 export const AlterCSS = async (__var, __sheet) => {
-  
+
   document.documentElement.style.setProperty(
     `--${__var}`,
     `url("${__sheet}")`
@@ -106,7 +106,6 @@ export const zeroCool = () => {
 //TODO    [LISTEN]
 
 action$.subscribe(value => {
-  console.log(`[ACTION] TRIGGER ${value}`)
   switch (value) { 
     case "fud":
         return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-EMMY-SHEET.png')
@@ -116,6 +115,7 @@ action$.subscribe(value => {
         return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-BEAR-SHEET.png')
   }
 })
+
 
 
 //?       [DX]
@@ -131,7 +131,6 @@ export const berserkButton = ({ scene, text }) => {
 
   return (
     <button
-      //disabled={load$}
       className="group"
       onClick={handleClick}
       tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
@@ -151,7 +150,6 @@ export const ShutterButton = ({ action, text }) => {
 
   return (
     <button
-      //disabled={load$}
       className="group"
       onClick={handleClick}
       tw="relative px-5 py-3 overflow-hidden font-medium text-nier-dark-brown bg-[#bab5a1] border border-nier-dark-brown rounded-lg shadow-inner "
@@ -256,6 +254,8 @@ export const ShipScreen = () => {
   );
 };
 
+export const RegisterModal = () => {};
+
 export const PortScreen = () => {};
 
 export const RefuelScreen = () => {};
@@ -263,13 +263,10 @@ export const RefuelScreen = () => {};
 export const RepairScreen = () => {};
 
 export const MenuScreen = () => {
-  //const $action = useStore(action$);
-
   Locker(
     "img",
     'https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"'
   );
-
   return (
     <Wrap text="Menu">
       <ShutterButton action="en" text="DE" />

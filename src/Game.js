@@ -25,10 +25,8 @@ const Game = () => {
     var x = $x;
     var y = $y;
 
-
-
     let held_directions = []; 
-    var speed = 1; 
+    var speed = 0.75; 
 
   const placeCharacter = () => {
     var pixelSize = parseInt(

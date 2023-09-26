@@ -42,6 +42,7 @@ const CustomStyles = createGlobalStyle`
   width: calc( var(--grid-cell)* 2 );
   height: calc( var(--grid-cell)* 2 );
   position: absolute;
+  z-index:2;
   overflow:hidden;
 }
 

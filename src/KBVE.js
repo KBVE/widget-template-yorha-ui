@@ -56,7 +56,7 @@ export const KBVE = () => {
            
           </div>
           <div>
-              ALPHA-v1.0.2
+              ALPHA-v1.0.3
             </div>
         </div>
       </div>
