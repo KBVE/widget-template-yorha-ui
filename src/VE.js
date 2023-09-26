@@ -5,18 +5,18 @@ import React from "react";
 
 import { Client, Account } from "appwrite";
 
-import { action$, scene$, load$, kbve$ } from './KB';
+import { action$, scene$, load$, kbve$ } from "./KB";
 
 import tw, { styled } from "twin.macro";
 
-//?       [Game]
+import { Helmet } from "react-helmet-async";
 
+//?       [Game]
 
 export const __bg = () => {
   const { $kbve } = useStore(VE.kbve$);
   return $kbve.img;
-}
-
+};
 
 //?       [APPWRITE]
 
@@ -28,17 +28,11 @@ const account = new Account(client);
 
 //!       [STORAGE] -> Migrated to KB.js
 
-
 //?       [FUNCTIONS]
 
 export const AlterCSS = async (__var, __sheet) => {
-
-  document.documentElement.style.setProperty(
-    `--${__var}`,
-    `url("${__sheet}")`
-  );
-
-}
+  document.documentElement.style.setProperty(`--${__var}`, `url("${__sheet}")`);
+};
 
 export const Locker = async (__key, __data) => {
   task(async () => {
@@ -93,30 +87,37 @@ export const Init = async () => {
 
 export const zeroCool = () => {
   task(async () => {
-    Locker('x', '90');
-    Locker('y', '34');
-    Locker('TL', '');
-    Locker('LL', '');
-    Locker('BL', '');
-    Locker('RL', '');
-    Locker('map', '');
+    Locker("x", "90");
+    Locker("y", "34");
+    Locker("TL", "");
+    Locker("LL", "");
+    Locker("BL", "");
+    Locker("RL", "");
+    Locker("map", "");
   });
 };
 
 //TODO    [LISTEN]
 
-action$.subscribe(value => {
-  switch (value) { 
+action$.subscribe((value) => {
+  switch (value) {
     case "fud":
-        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-EMMY-SHEET.png')
+      return AlterCSS(
+        "character-sprite",
+        "https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-EMMY-SHEET.png"
+      );
     case "zig":
-        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-HANK-2-SHEET.png')
+      return AlterCSS(
+        "character-sprite",
+        "https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-HANK-2-SHEET.png"
+      );
     case "dog":
-        return AlterCSS('character-sprite', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-BEAR-SHEET.png')
+      return AlterCSS(
+        "character-sprite",
+        "https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-BEAR-SHEET.png"
+      );
   }
-})
-
-
+});
 
 //?       [DX]
 
@@ -207,7 +208,7 @@ export const Loader = () => {
 export const GameOptions = () => {};
 
 export const Wrap = (props) => {
-//  const $kbve = useStore(kbve$);
+  //  const $kbve = useStore(kbve$);
 
   return (
     <div tw="absolute inset-x-0 bottom-0 p-2 m-1 bg-[#D1CDB7]/70 rounded-3xl">
@@ -224,7 +225,6 @@ export const Wrap = (props) => {
 };
 
 export const MainScreen = () => {
-
   Locker(
     "img",
     "https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
@@ -240,7 +240,6 @@ export const MainScreen = () => {
 };
 
 export const ShipScreen = () => {
-
   Locker(
     "img",
     "https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"
@@ -268,10 +267,87 @@ export const MenuScreen = () => {
     'https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=720&q=80"'
   );
   return (
-    <Wrap text="Menu">
-      <ShutterButton action="en" text="DE" />
-      <ShutterButton action="de" text="DE" />
-      <ShutterButton action="fr" text="FR" />
-    </Wrap>
+    <>
+      <Helmet>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      </Helmet>
+      <Wrap text="Menu">
+        <ShutterButton action="en" text="DE" />
+        <ShutterButton action="de" text="DE" />
+        <ShutterButton action="fr" text="FR" />
+      </Wrap>
+    </>
+  );
+};
+
+//?       [MODAL]
+
+export const LoginModal = () => {
+  const [showModal, setShowModal] = React.useState(false);
+  return (
+    <>
+      <button
+        tw="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        type="button"
+        onClick={() => setShowModal(true)}
+      >
+        Login
+      </button>
+      {showModal ? (
+        <>
+          <div
+            tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div tw="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 tw="text-3xl font-semibold">
+                    Modal Title
+                  </h3>
+                  <button
+                    tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div tw="relative p-6 flex-auto">
+                  <p tw="my-4 text-slate-500 text-lg leading-relaxed">
+                    I always felt like I could do anything. That’s the main
+                    thing people are controlled by! Thoughts- their perception
+                    of themselves! They're slowed down by their perception of
+                    themselves. If you're taught you can’t do anything, you
+                    won’t do anything. I was taught I could do everything.
+                  </p>
+                </div>
+                {/*footer*/}
+                <div tw="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div tw="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
   );
 };

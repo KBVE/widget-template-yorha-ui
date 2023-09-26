@@ -20,6 +20,8 @@ export const game$ = atom(false);
 export const scene$ = atom("");
 export const action$ = atom("");
 
+export const member$ = atom(false);
+
 export const kbve$ = persistentMap("kbve:", [], {
   encode(value) {
     return JSON.stringify(value);
