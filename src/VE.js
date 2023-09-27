@@ -2,31 +2,19 @@
 import { task } from "nanostores";
 import { useStore } from "@nanostores/react";
 import React from "react";
-
 import { Client, Account } from "appwrite";
-
 import { action$, scene$, load$, kbve$ } from "./KB";
-
 import tw, { styled } from "twin.macro";
-
 import { Helmet } from "react-helmet-async";
 
-//?       [Game]
+//?       [API]
 
-export const __bg = () => {
-  const { $kbve } = useStore(VE.kbve$);
-  return $kbve.img;
-};
-
-//?       [APPWRITE]
-
+const version = 'v1.1A';
 const client = new Client()
   .setEndpoint("https://panel.kbve.com/v1")
   .setProject("kbve");
 
 const account = new Account(client);
-
-//!       [STORAGE] -> Migrated to KB.js
 
 //?       [FUNCTIONS]
 
@@ -192,7 +180,8 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
 //?       [UX]
 export const Loader = () => {
   return (
-    <div tw="space-y-4 grid place-items-center">
+    <Wrap>
+    <div tw="space-y-4 grid place-items-center scale-50">
       <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-16">
         <div tw="h-24 rounded-t bg-[#57544a]"></div>
         <div tw="flex-1 px-4 py-8 space-y-4 sm:p-8 bg-gray-900">
@@ -202,6 +191,7 @@ export const Loader = () => {
         </div>
       </div>
     </div>
+    </Wrap>
   );
 };
 
@@ -282,12 +272,82 @@ export const MenuScreen = () => {
 
 //?       [MODAL]
 
+
+export const VersionModal = () => {
+  const [showModal, setShowModal] = React.useState(false);
+  return (
+    <>
+      <button
+      className="group"
+      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
+      type="button"
+        onClick={() => setShowModal(true)}
+      >  <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
+      <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
+        {version}
+        </span>
+      </button>
+      {showModal ? (
+        <>
+          <div
+            tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div tw="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 tw="text-3xl font-semibold">
+                    YoRHa UI {version}
+                  </h3>
+                  <button
+                    tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div tw="relative p-6 flex-auto">
+                  <p tw="my-4 text-slate-500 text-lg leading-relaxed">
+                    This is a small scale "Tamagotchi"-like pocket cyberpunk cowboy game!
+                  </p>
+                </div>
+                {/*footer*/}
+                <div tw="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div tw="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+  );
+}
+
 export const LoginModal = () => {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
       <button
-        tw="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        tw="flex bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
