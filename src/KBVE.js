@@ -56,8 +56,8 @@ export const KBVE = () => {
            
           </div>
           <div tw="space-x-2 flex flex-row">
-              <div><VE.VersionModal /></div> 
-              <div><VE.LoginModal /></div>
+              <div>Version Model</div> 
+              <div>LOGIN - Removed For Now</div>
             </div>
         </div>
       </div>

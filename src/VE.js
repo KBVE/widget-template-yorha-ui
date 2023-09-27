@@ -3,13 +3,13 @@ import { task } from "nanostores";
 import { useStore } from "@nanostores/react";
 import React from "react";
 import { Client, Account } from "appwrite";
-import { action$, scene$, load$, kbve$ } from "./KB";
+import { action$, scene$, load$, kbve$, modal$ } from "./KB";
 import tw, { styled } from "twin.macro";
 import { Helmet } from "react-helmet-async";
 
 //?       [API]
 
-const version = 'v1.1A';
+const version = "v1.1A";
 const client = new Client()
   .setEndpoint("https://panel.kbve.com/v1")
   .setProject("kbve");
@@ -24,14 +24,14 @@ export const AlterCSS = async (__var, __sheet) => {
 
 export const Locker = async (__key, __data) => {
   task(async () => {
-    console.log(`[LOCKER] ${__data} into locker for ${__key}`);
+    //console.log(`[LOCKER] ${__data} into locker for ${__key}`);
     kbve$.setKey(__key, __data);
   });
 };
 
 export const Tasker = async (__task, __data) => {
   task(async () => {
-    console.log(`[TASK] ${__task} - ${__data}`);
+    //console.log(`[TASK] ${__task} - ${__data}`);
     switch (__task) {
       case "action":
         return action$.set(__data);
@@ -39,6 +39,8 @@ export const Tasker = async (__task, __data) => {
         return scene$.set(__data);
       case "load":
         return load$.set(__data);
+      case "close":
+        return modal$.set(false);
       default:
         return Locker(__task, __data);
     }
@@ -113,17 +115,17 @@ export const DX = () => {};
 
 //?       [UI]
 
-export const berserkButton = ({ scene, text }) => {
+export const berserkButton = ({ scene = "", text, action = "" }) => {
   const handleClick = async () => {
-    Tasker("scene", scene);
+    if (scene.length > 2) Tasker("scene", scene);
+    if (action.length > 2) Tasker("action", action);
   };
 
   return (
     <button
       className="group"
       onClick={handleClick}
-      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
-    >
+      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300">
       <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
       <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
         {text}
@@ -141,8 +143,7 @@ export const ShutterButton = ({ action, text }) => {
     <button
       className="group"
       onClick={handleClick}
-      tw="relative px-5 py-3 overflow-hidden font-medium text-nier-dark-brown bg-[#bab5a1] border border-nier-dark-brown rounded-lg shadow-inner "
-    >
+      tw="relative px-5 py-3 overflow-hidden font-medium text-nier-dark-brown bg-[#bab5a1] border border-nier-dark-brown rounded-lg shadow-inner ">
       <span tw="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease-in-out"></span>
       <span tw="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease-in-out"></span>
       <span tw="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#454138]/80 group-hover:h-full ease-in-out"></span>
@@ -164,8 +165,7 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
     <button
       className="group"
       onClick={handleClick}
-      tw="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-nier-red rounded-full shadow-md"
-    >
+      tw="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-nier-red rounded-full shadow-md">
       <span tw="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full group-hover:translate-x-0 ease-in-out">
         {svg}
       </span>
@@ -181,16 +181,16 @@ export const shitOnMemeButton = ({ scene, text, svg }) => {
 export const Loader = () => {
   return (
     <Wrap>
-    <div tw="space-y-4 grid place-items-center scale-50">
-      <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-16">
-        <div tw="h-24 rounded-t bg-[#57544a]"></div>
-        <div tw="flex-1 px-4 py-8 space-y-4 sm:p-8 bg-gray-900">
-          <div tw="w-full h-6 rounded bg-[#57544a]"></div>
-          <div tw="w-full h-6 rounded bg-[#57544a]"></div>
-          <div tw="w-3/4 h-6 rounded bg-[#57544a]"></div>
+      <div tw="space-y-4 grid place-items-center scale-50">
+        <div tw="flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-16">
+          <div tw="h-24 rounded-t bg-[#57544a]"></div>
+          <div tw="flex-1 px-4 py-8 space-y-4 sm:p-8 bg-gray-900">
+            <div tw="w-full h-6 rounded bg-[#57544a]"></div>
+            <div tw="w-full h-6 rounded bg-[#57544a]"></div>
+            <div tw="w-3/4 h-6 rounded bg-[#57544a]"></div>
+          </div>
         </div>
       </div>
-    </div>
     </Wrap>
   );
 };
@@ -272,38 +272,33 @@ export const MenuScreen = () => {
 
 //?       [MODAL]
 
-
-export const VersionModal = () => {
-  const [showModal, setShowModal] = React.useState(false);
+export const deployModal = () => {
+  const $modal = useStore(modal$);
   return (
     <>
       <button
-      className="group"
-      tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
-      type="button"
-        onClick={() => setShowModal(true)}
-      >  <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
-      <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
-        {version}
+        className="group"
+        tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
+        type="button"
+        onClick={() => setShowModal(true)}>
+        {" "}
+        <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
+        <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
+          {version}
         </span>
       </button>
-      {showModal ? (
+      {$modal ? (
         <>
-          <div
-            tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+          <div tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div tw="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 tw="text-3xl font-semibold">
-                    YoRHa UI {version}
-                  </h3>
+                  <h3 tw="text-3xl font-semibold">YoRHa UI {version}</h3>
                   <button
                     tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
+                    onClick={() => setShowModal(false)}>
                     <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
                     </span>
@@ -312,7 +307,8 @@ export const VersionModal = () => {
                 {/*body*/}
                 <div tw="relative p-6 flex-auto">
                   <p tw="my-4 text-slate-500 text-lg leading-relaxed">
-                    This is a small scale "Tamagotchi"-like pocket cyberpunk cowboy game!
+                    This is a small scale "Tamagotchi"-like pocket cyberpunk
+                    cowboy game!
                   </p>
                 </div>
                 {/*footer*/}
@@ -320,85 +316,13 @@ export const VersionModal = () => {
                   <button
                     tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                    onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
                     tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div tw="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-    </>
-  );
-}
-
-export const LoginModal = () => {
-  const [showModal, setShowModal] = React.useState(false);
-  return (
-    <>
-      <button
-        tw="flex bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Login
-      </button>
-      {showModal ? (
-        <>
-          <div
-            tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
-            <div tw="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 tw="text-3xl font-semibold">
-                    Modal Title
-                  </h3>
-                  <button
-                    tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
-                </div>
-                {/*body*/}
-                <div tw="relative p-6 flex-auto">
-                  <p tw="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
-                </div>
-                {/*footer*/}
-                <div tw="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                    onClick={() => setShowModal(false)}>
                     Save Changes
                   </button>
                 </div>
