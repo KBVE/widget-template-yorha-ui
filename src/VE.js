@@ -39,8 +39,8 @@ export const Tasker = async (__task, __data) => {
         return scene$.set(__data);
       case "load":
         return load$.set(__data);
-      case "close":
-        return modal$.set(false);
+      case "modal":
+        return modal$.set(__data);
       default:
         return Locker(__task, __data);
     }
@@ -70,13 +70,14 @@ export const Scene = () => {
 
 export const Init = async () => {
   task(async () => {
-    zeroCool();
+    zeroCool(); //! - Remove in v1.2
     setTimeout(() => Tasker("scene", "main"), 1000);
   });
 };
 
 export const zeroCool = () => {
   task(async () => {
+    //! - Remove Locker Entities v1.2
     Locker("x", "90");
     Locker("y", "34");
     Locker("TL", "");
@@ -276,17 +277,6 @@ export const deployModal = () => {
   const $modal = useStore(modal$);
   return (
     <>
-      <button
-        className="group"
-        tw="relative rounded px-5 py-2.5 overflow-hidden bg-[#D1CDB7] hover:bg-gradient-to-r hover:from-[#D1CDB7]/80 hover:to-[#D1CDB7]/50 hover:ring-2 hover:ring-offset-2 hover:ring-[#3F3D36] border border-nier-dark-brown transition-all ease-out duration-300"
-        type="button"
-        onClick={() => setShowModal(true)}>
-        {" "}
-        <span tw="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-[#454138] opacity-40 rotate-12 group-hover:-translate-x-40 ease-in"></span>
-        <span tw="relative uppercase text-xl text-nier-dark-brown font-manrope tracking-[.5em] text-shadow-nier shadow-black animate-[pulse_2s_ease-in-out]">
-          {version}
-        </span>
-      </button>
       {$modal ? (
         <>
           <div tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -298,7 +288,7 @@ export const deployModal = () => {
                   <h3 tw="text-3xl font-semibold">YoRHa UI {version}</h3>
                   <button
                     tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}>
+                    onClick={() => Tasker("modal", false)}>
                     <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
                     </span>
@@ -316,13 +306,13 @@ export const deployModal = () => {
                   <button
                     tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}>
+                    onClick={() => Tasker("modal", false)}>
                     Close
                   </button>
                   <button
                     tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}>
+                    onClick={() => Tasker("modal", false)}>
                     Save Changes
                   </button>
                 </div>
