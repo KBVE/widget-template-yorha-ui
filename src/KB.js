@@ -7,7 +7,6 @@ export const x$ = atom(90);
 export const y$ = atom(65);
 
 export const character$ = atom("");
-
 export const map$ = atom("");
 
 export const RightLimit$ = atom(184);
@@ -19,7 +18,6 @@ export const load$ = atom(true);
 export const game$ = atom(false);
 export const scene$ = atom("");
 export const action$ = atom("");
-
 export const modal$ = atom(false);
 
 export const member$ = atom(false);

@@ -92,6 +92,9 @@ export const zeroCool = () => {
 
 action$.subscribe((value) => {
   switch (value) {
+    case "close":
+      Tasker("modal", false); // Additional Safety check to close modal.
+      return;
     case "fud":
       return AlterCSS(
         "character-sprite",
@@ -107,6 +110,9 @@ action$.subscribe((value) => {
         "character-sprite",
         "https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/WalkingDemo-BEAR-SHEET.png"
       );
+    case "register":
+      Tasker("modal", "register");
+      return;
   }
 });
 
@@ -244,7 +250,6 @@ export const ShipScreen = () => {
   );
 };
 
-export const RegisterModal = () => {};
 
 export const PortScreen = () => {};
 
@@ -259,11 +264,8 @@ export const MenuScreen = () => {
   );
   return (
     <>
-      <Helmet>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-      </Helmet>
       <Wrap text="Menu">
-        <ShutterButton action="en" text="DE" />
+        <ShutterButton action="register" text="DE" />
         <ShutterButton action="de" text="DE" />
         <ShutterButton action="fr" text="FR" />
       </Wrap>
@@ -275,9 +277,26 @@ export const MenuScreen = () => {
 
 export const deployModal = () => {
   const $modal = useStore(modal$);
+
+  if(!$modal) {
+    return <></>
+  }
+
+  switch($modal) {
+    case "register":
+      return <>
+        <Helmet>
+        <script src="https://js.hcaptcha.com/1/api.js?" async defer></script>
+        </Helmet>
+        </>
+  }
+
+  
+
+}
+
+export const ModalWrap = ({title, content}) => {
   return (
-    <>
-      {$modal ? (
         <>
           <div tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div tw="relative w-auto my-6 mx-auto max-w-3xl">
@@ -285,10 +304,10 @@ export const deployModal = () => {
               <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 tw="text-3xl font-semibold">YoRHa UI {version}</h3>
+                  <h3 tw="text-3xl font-semibold">{title}</h3>
                   <button
                     tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => Tasker("modal", false)}>
+                    onClick={() => Tasker("modal", undefined)}>
                     <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
                     </span>
@@ -296,23 +315,24 @@ export const deployModal = () => {
                 </div>
                 {/*body*/}
                 <div tw="relative p-6 flex-auto">
-                  <p tw="my-4 text-slate-500 text-lg leading-relaxed">
+                  {content ? {content} : <p tw="my-4 text-slate-500 text-lg leading-relaxed">
                     This is a small scale "Tamagotchi"-like pocket cyberpunk
                     cowboy game!
                   </p>
+                  }
                 </div>
                 {/*footer*/}
                 <div tw="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
                     tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => Tasker("modal", false)}>
+                    onClick={() => Tasker("modal", undefined)}>
                     Close
                   </button>
                   <button
                     tw="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => Tasker("modal", false)}>
+                    onClick={() => Tasker("modal", undefined)}>
                     Save Changes
                   </button>
                 </div>
@@ -321,7 +341,5 @@ export const deployModal = () => {
           </div>
           <div tw="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
-    </>
-  );
+        );
 };
