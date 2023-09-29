@@ -288,8 +288,22 @@ export const deployModal = () => {
         <Helmet>
         <script src="https://js.hcaptcha.com/1/api.js?" async defer></script>
         </Helmet>
-        <ModalWrap title="Register" content="Register" />
+        <ModalWrap title="Register">
+          Register
+          </ModalWrap>
         </>
+    case "login":
+      return <>
+      <ModalWrap title="Login">
+        Login
+        </ModalWrap>
+      </>
+    case "petals":
+      return <>
+            <ModalWrap title="Petals">
+        Petals
+        </ModalWrap>
+      </>
     default:
       return <></>
   }
@@ -298,7 +312,7 @@ export const deployModal = () => {
 
 }
 
-export const ModalWrap = ({title, content}) => {
+export const ModalWrap = (props) => {
   return (
         <>
           <div tw="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -307,16 +321,12 @@ export const ModalWrap = ({title, content}) => {
               <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-[#D1CDB7] outline-none focus:outline-none">
                 {/*header*/}
                 <div tw="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 tw="text-3xl font-semibold">{title}</h3>
+                  <h3 tw="text-3xl font-semibold">{props.title ? props.title : 'Title'}</h3>
                  
                 </div>
                 {/*body*/}
                 <div tw="relative p-6 flex-auto">
-                  {content ? content : <p tw="my-4 text-slate-500 text-lg leading-relaxed">
-                    This is a small scale "Tamagotchi"-like pocket cyberpunk
-                    cowboy game!
-                  </p>
-                  }
+                  {props.children}
                 </div>
                 {/*footer*/}
                 <div tw="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

@@ -12,10 +12,16 @@ const Game = () => {
     const $rightLimit = useStore(RightLimit$);
     const $topLimit = useStore(TopLimit$);
     const $bottomLimit = useStore(BottomLimit$);
+
+    //TODO  : Game Store
     const $game = useStore(game$);
 
+    //TODO  : Map Store
     const $map = useStore(map$);
+    
+    //TODO  : Character Store
     const $character = useStore(character$);
+
 
 
     const character = React.useRef();
