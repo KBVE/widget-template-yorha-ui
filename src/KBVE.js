@@ -55,11 +55,10 @@ export const KBVE = () => {
 
            
           </div>
-          <div tw="space-x-2 flex flex-row">
-              <div>Version Model</div> 
-              <div>LOGIN - Removed For Now</div>
-              <VE.deployModal />
-            </div>
+          <div tw="space-x-2 flex flex-row scale-75 md:scale-90">
+              <VE.berserkButton action="register" text="Register" />
+          </div>
+          <VE.deployModal />
         </div>
       </div>
     </div>
