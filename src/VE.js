@@ -3,9 +3,10 @@ import { task } from "nanostores";
 import { useStore } from "@nanostores/react";
 import React from "react";
 import { Client, Account } from "appwrite";
-import { action$, scene$, load$, kbve$, modal$ } from "./KB";
+import { action$, scene$, load$, kbve$, modal$, member$ } from "./KB";
 import tw, { styled } from "twin.macro";
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 
 //?       [API]
 
@@ -88,7 +89,7 @@ export const zeroCool = () => {
   });
 };
 
-//TODO    [LISTEN]
+//?       [LISTEN]
 
 action$.subscribe((value) => {
   switch (value) {
@@ -113,6 +114,12 @@ action$.subscribe((value) => {
     case "register":
       Tasker("modal", "register");
       return;
+    case "app":
+      Tasker("modal", "app");
+      return;
+    case "auth":
+      console.log("[Modal] -> [AUTH]")
+      return;
   }
 });
 
@@ -122,7 +129,7 @@ export const DX = () => {};
 
 //?       [UI]
 
-export const berserkButton = ({ scene = "", text, action = "" }) => {
+export const BerserkButton = ({ scene = "", text, action = "" }) => {
   const handleClick = async () => {
     if (scene.length > 2) Tasker("scene", scene);
     if (action.length > 2) Tasker("action", action);
@@ -265,7 +272,7 @@ export const MenuScreen = () => {
   return (
     <>
       <Wrap text="Menu">
-        <ShutterButton action="register" text="DE" />
+        <ShutterButton action="stats" text="Stats" />
         <ShutterButton action="de" text="DE" />
         <ShutterButton action="fr" text="FR" />
       </Wrap>
@@ -275,8 +282,29 @@ export const MenuScreen = () => {
 
 //?       [MODAL]
 
+//!       [FOOTER]
+export const Footer = () => {
+  const $member = useStore(member$);
+
+  if(!$member)
+  return (
+    <>
+    <BerserkButton action="register" text="Register" />
+    <BerserkButton action="app" text="KBVE" />
+    </>
+  )
+  else {
+    <>
+    </>
+  }
+}
+
+
 export const deployModal = () => {
   const $modal = useStore(modal$);
+
+  const { register, handleSubmit } = useForm()
+
 
   if(!$modal) {
     return <></>
@@ -302,6 +330,13 @@ export const deployModal = () => {
       return <>
             <ModalWrap title="Petals">
         Petals
+        </ModalWrap>
+      </>
+    case "app":
+      return <>
+            <ModalWrap title="KBVE">
+              Appwrite: v1.4.3
+              YoRHa : {version}
         </ModalWrap>
       </>
     default:

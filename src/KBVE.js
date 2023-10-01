@@ -25,8 +25,8 @@ export const KBVE = () => {
     >
       <div tw="flex justify-between pb-4 ">
         <div tw="flex items-center space-x-4 scale-75 md:scale-90">
-          <VE.berserkButton scene="menu" text="Menu" />
-          <VE.berserkButton scene="ship" text="Ship" />
+          <VE.BerserkButton scene="menu" text="Menu" />
+          <VE.BerserkButton scene="ship" text="Ship" />
         </div>
         <VE.shitOnMemeButton
           scene="main"
@@ -56,7 +56,7 @@ export const KBVE = () => {
            
           </div>
           <div tw="space-x-2 flex flex-row scale-75 md:scale-90">
-              <VE.berserkButton action="register" text="Register" />
+              <VE.Footer />
           </div>
           <VE.deployModal />
         </div>
