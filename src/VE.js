@@ -47,6 +47,9 @@ export const Tasker = async (__task, __data) => {
   });
 };
 
+//!   FET - A merged function of 'GET' and 'FETCH', with a custom cache + storage implt.
+export const Fet = async () => {}
+
 export const Scene = () => {
   const $scene = useStore(scene$);
 
