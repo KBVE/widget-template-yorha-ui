@@ -6,7 +6,6 @@ import { Client, Account } from "appwrite";
 import { action$, scene$, load$, kbve$, modal$, member$ } from "./KB";
 import tw, { styled } from "twin.macro";
 import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
 
 //?       [API]
 
@@ -118,7 +117,7 @@ action$.subscribe((value) => {
       Tasker("modal", "app");
       return;
     case "auth":
-      console.log("[Modal] -> [AUTH]")
+      Tasker("modal", "login");
       return;
   }
 });
@@ -289,7 +288,7 @@ export const Footer = () => {
   if(!$member)
   return (
     <>
-    <BerserkButton action="register" text="Register" />
+    <BerserkButton action="auth" text="Login" />
     <BerserkButton action="app" text="KBVE" />
     </>
   )
@@ -303,7 +302,6 @@ export const Footer = () => {
 export const deployModal = () => {
   const $modal = useStore(modal$);
 
-  const { register, handleSubmit } = useForm()
 
 
   if(!$modal) {
@@ -317,7 +315,7 @@ export const deployModal = () => {
         <script src="https://js.hcaptcha.com/1/api.js?" async defer></script>
         </Helmet>
         <ModalWrap title="Register">
-          Register
+          Register at KBVE.com/account/register/
           </ModalWrap>
         </>
     case "login":
